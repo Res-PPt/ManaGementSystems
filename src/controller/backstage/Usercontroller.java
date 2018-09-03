@@ -6,13 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import service.UserService;
 @Controller
+@RequestMapping("/manager")
 public class Usercontroller {
 	@Autowired
-	private UserService userService;
 	
-	@RequestMapping("s")
-	public String ps() {
-		System.out.println(userService.count());
-		return "";
+	@RequestMapping("/login")
+	public String login() {
+		return "backendlogin";
 	}
 }
