@@ -1,5 +1,8 @@
 package service;
 
+
+import dao.UserMapper;
+import entity.BackendUser;
 public interface UserService {
-	int count();
+	public BackendUser query1(BackendUser backendUser);
 }

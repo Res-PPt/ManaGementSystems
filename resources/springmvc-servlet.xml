@@ -17,8 +17,8 @@
        
        <mvc:resources location="/statics/" mapping="/statics/**"></mvc:resources>
        -->
-       <!-- <mvc:resources location="/statics/" mapping="/statics/**"></mvc:resources> -->
-       	<mvc:default-servlet-handler/>
+       <mvc:resources location="/statics/" mapping="/statics/**"></mvc:resources>
+<!--        	<mvc:default-servlet-handler/> -->
         <mvc:annotation-driven></mvc:annotation-driven>
 		
 		<mvc:resources location="/statics/" mapping="/statics/**"></mvc:resources>

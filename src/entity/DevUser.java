@@ -1,7 +1,11 @@
 package entity;
 
 import java.sql.Date;
-
+/**
+ * 开发者用户表
+ * @author Administrator
+ *
+ */
 public class DevUser {
 	private int id;//主键id
 	private String devCode;//开发者帐号
