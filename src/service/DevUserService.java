@@ -1,7 +1,10 @@
 package service;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import entity.AppInfo;
 import entity.BackendUser;
 import entity.DevUser;
 
@@ -20,4 +23,10 @@ public interface DevUserService {
 	 * @return
 	 */
 	public DevUser queryPwd(@Param("devPassword") String userPassword);
+	/**
+	 * Ä£ºý²éÑ¯
+	 * @param appInfo
+	 * @return
+	 */
+	public List<AppInfo> Arlist(AppInfo appInfo);
 }	

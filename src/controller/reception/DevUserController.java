@@ -1,11 +1,14 @@
 package controller.reception;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import entity.AppInfo;
 import entity.DevUser;
 import service.DevUserServiceimpl;
 /**
@@ -52,9 +55,32 @@ public class DevUserController {
 		return "devlogin";
 	}
 }
-	
+	/**
+	 * 第一次进入页面先把下拉框添加进去
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request){
+	public String list(AppInfo appInfo,HttpServletRequest request){
+		/**
+		 * 首先判断是否为空如果为空那就先把他给添加下拉框和分页
+		 */
+		if(appInfo==null) {
+			
+		}
+		List<AppInfo> list=DevUserService.Arlist(appInfo);
+		request.setAttribute("status", list);
 		return "developer/appinfolist";
+	}
+	
+	/**
+	 * 退出系统
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request){
+		request.getSession().removeAttribute("devUserSession");
+		return "devlogin";
 	}
 }

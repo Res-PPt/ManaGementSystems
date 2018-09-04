@@ -30,7 +30,7 @@
 							<label class="control-label col-md-3 col-sm-3 col-xs-12">APP状态</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<select name="queryStatus" class="form-control">
-									<c:if test="${statusList != null }">
+									<c:if test="${statusList != null}">
 									   <option value="">--请选择--</option>
 									   <c:forEach var="dataDictionary" items="${statusList}">
 									   		<option <c:if test="${dataDictionary.valueId == queryStatus }">selected="selected"</c:if>

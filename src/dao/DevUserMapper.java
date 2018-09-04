@@ -1,7 +1,11 @@
 package dao;
 
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import entity.AppInfo;
 import entity.BackendUser;
 import entity.DevUser;
 
@@ -22,4 +26,11 @@ public interface DevUserMapper {
 	 * @return
 	 */
 	public DevUser queryPwd(@Param("devPassword") String userPassword);
+	
+	/**
+	 * Ä£ºý²éÑ¯
+	 * @param appInfo
+	 * @return
+	 */
+	public List<AppInfo> Arrlist(AppInfo appInfo);
 }

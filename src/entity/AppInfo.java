@@ -13,6 +13,11 @@ public class AppInfo {
 	private String APKName;//APK名称
 	private String supportROM;//支持ROM
 	private String interfaceLanguage;//界面语言
+	private String flatformName;//所属平台
+	private String categoryLevel1Name;//一级分类
+	private String categoryLevel2Name;//二级分类
+	private String categoryLevel3Name;//三级分类
+	private String versionNo;//app最新版本
 	private double softwareSize;//软件大小
 	private Date updateDate;//更新日期
 	private int devld;//开发者Id
@@ -175,5 +180,35 @@ public class AppInfo {
 	}
 	public void setVersionId(int versionId) {
 		this.versionId = versionId;
+	}
+	public String getFlatformName() {
+		return flatformName;
+	}
+	public void setFlatformName(String flatformName) {
+		this.flatformName = flatformName;
+	}
+	public String getCategoryLevel1Name() {
+		return categoryLevel1Name;
+	}
+	public void setCategoryLevel1Name(String categoryLevel1Name) {
+		this.categoryLevel1Name = categoryLevel1Name;
+	}
+	public String getCategoryLevel2Name() {
+		return categoryLevel2Name;
+	}
+	public void setCategoryLevel2Name(String categoryLevel2Name) {
+		this.categoryLevel2Name = categoryLevel2Name;
+	}
+	public String getCategoryLevel3Name() {
+		return categoryLevel3Name;
+	}
+	public void setCategoryLevel3Name(String categoryLevel3Name) {
+		this.categoryLevel3Name = categoryLevel3Name;
+	}
+	public String getVersionNo() {
+		return versionNo;
+	}
+	public void setVersionNo(String versionNo) {
+		this.versionNo = versionNo;
 	}
 }
