@@ -32,5 +32,5 @@ public interface DevUserMapper {
 	 * @param appInfo
 	 * @return
 	 */
-	public List<AppInfo> Arrlist(AppInfo appInfo);
+	public List<AppInfo> Arrlist(Object appInfo);
 }

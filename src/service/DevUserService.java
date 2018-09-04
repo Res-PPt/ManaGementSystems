@@ -28,5 +28,5 @@ public interface DevUserService {
 	 * @param appInfo
 	 * @return
 	 */
-	public List<AppInfo> Arlist(AppInfo appInfo);
+	public List<AppInfo> Arlist(Object appInfo);
 }	

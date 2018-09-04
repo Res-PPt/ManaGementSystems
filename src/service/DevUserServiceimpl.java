@@ -35,7 +35,7 @@ public class DevUserServiceimpl implements DevUserService{
 	}
 
 	@Override
-	public List<AppInfo> Arlist(AppInfo appInfo) {
+	public List<AppInfo> Arlist(Object appInfo) {
 		// TODO Auto-generated method stub
 		return devUserMapper.Arrlist(appInfo);
 	}

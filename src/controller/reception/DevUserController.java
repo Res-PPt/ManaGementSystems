@@ -61,7 +61,7 @@ public class DevUserController {
 	 * @return
 	 */
 	@RequestMapping("/list")
-	public String list(AppInfo appInfo,HttpServletRequest request){
+	public String list(Object appInfo,HttpServletRequest request){
 		/**
 		 * 首先判断是否为空如果为空那就先把他给添加下拉框和分页
 		 */
