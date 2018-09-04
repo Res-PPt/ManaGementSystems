@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="dao.DevUserMapper">
+	<select id="login" resultType="DevUser">
+	SELECT *FROM dev_user WHERE devCode=#{devCode} and devPassword=#{devPassword}
+	</select>
+	
+	
+	
+	<select id="queryName" resultType="DevUser">
+		SELECT *from dev_user WHERE devCode=#{devCode}
+	</select>
+	<select id="queryPwd" resultType="DevUser">
+		SELECT *from dev_user WHERE devPassword=#{devPassword}
+	</select>
+	
+	
+
+
+</mapper>
