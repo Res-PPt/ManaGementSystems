@@ -25,6 +25,11 @@ public class Usercontroller {
 	public String login(HttpServletRequest request) {
 		return "backendlogin";
 	}
+	/**
+	 * ºóÌ¨µÇÂ¼
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/dologin")
 	public String dologin(HttpServletRequest request){
 		String userCode = request.getParameter("userCode");
@@ -50,4 +55,9 @@ public class Usercontroller {
 		return "backendlogin";
 	}
 }
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request){
+		request.getSession().removeAttribute("userSession");
+		return "backendlogin";
+	}
 }
