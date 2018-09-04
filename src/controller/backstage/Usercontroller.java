@@ -33,10 +33,21 @@ public class Usercontroller {
 		ba.setUserCode(userCode);
 		ba.setUserPassword(userPassword);
 		BackendUser bss = userServiceimpl.query1(ba);
+		
 		if(bss!=null){
 		request.setAttribute("userSession",bss);
 		return "backend/main";
+	}else{
+		BackendUser bts = userServiceimpl.queryName(userCode);
+		BackendUser btss = userServiceimpl.queryPwd(userPassword);
+		if(bts==null && btss!=null){
+			request.setAttribute("error","用户名输入有误");
+		}else if(bts!=null && btss==null){
+			request.setAttribute("error","密码输入有误");
+		}else{
+		request.setAttribute("error","用户名或密码都不存在");
+		}
+		return "backendlogin";
 	}
-		return null;
 }
 }

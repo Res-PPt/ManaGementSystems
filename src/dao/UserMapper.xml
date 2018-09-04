@@ -4,4 +4,10 @@
 	<select id="queryId" resultType="BackendUser" parameterType="BackendUser">
 		select b.*,c.valueName as userTypeName from backend_user b,data_dictionary c where b.userType=c.id and userCode =#{userCode} and userPassword=#{userPassword}
 	</select>
+	<select id="queryName" resultType="BackendUser">
+		select * from backend_user where userCode=#{userCode}
+	</select>
+	<select id="queryPwd" resultType="BackendUser">
+		select * from backend_user where userPassword=#{userPassword}
+	</select>
 </mapper>
