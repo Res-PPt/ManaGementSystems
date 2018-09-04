@@ -39,7 +39,7 @@ public class DevUserController {
 		if(bss!=null){
 		request.setAttribute("devUserSession",bss);
 		return "developer/main";
-	}else{
+	}else{ 
 		DevUser bts = DevUserService.queryName(devCode);
 		DevUser btss = DevUserService.queryPwd(devPassword);
 		if(bts==null && btss!=null){
