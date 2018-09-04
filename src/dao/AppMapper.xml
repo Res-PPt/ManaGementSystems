@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="dao.AppMapper">
+	<select id="queryAPP" resultType="AppInfo" parameterType="AppInfo">
+		select softwareName,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
+	,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' and b.valueId=1)
+ 	as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
+	(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,
+	(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
+	(select versionNo from app_version v where a.versionId=v.id) as versionNo
+	from app_info a where (select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' and b.valueId=1) ='待审核'
+	<if test="softwareName!=null and softwareName!=''">
+		and softwareName LIKE concat('%',#{softwareName},'%') 
+	</if>
+	
+	<if test="statusName!=null and statusName!=''">
+		flatformId =#{flatformId}
+	</if>
+	
+	<if test="categoryLevel1Name!=null and categoryLevel1Name!=0">
+		and categoryLevel1Name =#{categoryLevel1Name}
+	</if>
+	
+	<if test="categoryLevel2Name!=null and categoryLevel2Name!=0">
+		and categoryLevel2Name = #{categoryLevel2Name}
+	</if>
+	
+	<if test="categoryLevel3Name!=null and categoryLevel3Name!=0">
+		and categoryLevel3Name =#{categoryLevel3Name}
+	</if>
+	
+	</select>
+</mapper>

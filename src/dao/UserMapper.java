@@ -2,6 +2,7 @@ package dao;
 
 import org.apache.ibatis.annotations.Param;
 
+import entity.AppInfo;
 import entity.BackendUser;
 
 /**
@@ -27,4 +28,5 @@ public interface UserMapper {
 	 * @return
 	 */
 	public BackendUser queryPwd(@Param("userPassword") String userPassword);
+	
 }

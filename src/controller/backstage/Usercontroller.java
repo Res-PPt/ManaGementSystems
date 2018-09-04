@@ -55,6 +55,11 @@ public class Usercontroller {
 		return "backendlogin";
 	}
 }
+	/**
+	 * ºóÌ¨ÍË³öµÇÂ¼
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request){
 		request.getSession().removeAttribute("userSession");
