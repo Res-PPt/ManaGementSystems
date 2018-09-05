@@ -3,10 +3,13 @@ package controller.reception;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.AppInfo;
 import entity.DevUser;
@@ -21,6 +24,8 @@ import service.DevUserServiceimpl;
 public class DevUserController {
 	@Autowired
 	private DevUserServiceimpl DevUserService;
+	
+//	private AppInfo appInfo;
 	
 	@RequestMapping("/login")
 	public String login(){
@@ -67,8 +72,21 @@ public class DevUserController {
 		 */
 		List<AppInfo> list = DevUserService.ListAPP(appInfo);
 		request.setAttribute("appInfoList", list);
-		System.out.println(list.size());
 		return "developer/appinfolist";
+	}
+	
+	/**
+	 * 跳转到查询查看页面
+	 */
+	@RequestMapping("/appview/{id}")
+	public String appview(@PathVariable String id,HttpServletRequest resquest) {
+		AppInfo sa=DevUserService.queryid(id);
+		AppInfo appInfo=new AppInfo();
+		appInfo.setId(Integer.valueOf(id));
+		List<AppInfo> list=DevUserService.queryids(id);
+		resquest.setAttribute("appInfo", sa);
+		resquest.setAttribute("appVersionList", list);
+		return "developer/appinfoview";
 	}
 	
 	/**
@@ -83,4 +101,17 @@ public class DevUserController {
 		request.getSession().removeAttribute("devUserSession");
 		return "devlogin";
 	}
+	
+	
+	/**
+	 * 删除
+	 */
+	
+	@RequestMapping(value="paginquery",produces = "text/html;charset=UTF-8")
+	   @ResponseBody
+	   public String Delid(HttpServletRequest reques,
+			   HttpServletResponse response) {
+				return null;
+	}
+
 }

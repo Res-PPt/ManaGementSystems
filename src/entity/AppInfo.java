@@ -15,6 +15,10 @@ public class AppInfo {
 	private String interfaceLanguage;//界面语言
 	private double softwareSize;//软件大小
 	private Date updateDate;//更新日期
+	private String apkLocPath;
+	private String apkFileName;
+	private String apklocPath;
+	
 	private int devld;//开发者Id
 	private String appInfo;//应用简介
 	private int status;//状态
@@ -38,6 +42,13 @@ public class AppInfo {
 	private String flatformName;//所属平台
 	private String statusName;//状态
 	private String versionNo;//最新版本号
+	
+	public String getApklocPath() {
+		return apklocPath;
+	}
+	public void setApklocPath(String apklocPath) {
+		this.apklocPath = apklocPath;
+	}
 	public int getId() {
 		return id;
 	}
@@ -217,6 +228,18 @@ public class AppInfo {
 	}
 	public void setVersionNo(String versionNo) {
 		this.versionNo = versionNo;
+	}
+	public String getApkLocPath() {
+		return apkLocPath;
+	}
+	public void setApkLocPath(String apkLocPath) {
+		this.apkLocPath = apkLocPath;
+	}
+	public String getApkFileName() {
+		return apkFileName;
+	}
+	public void setApkFileName(String apkFileName) {
+		this.apkFileName = apkFileName;
 	}
 
 }

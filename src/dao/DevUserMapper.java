@@ -33,4 +33,14 @@ public interface DevUserMapper {
 	 * @return
 	 */
 	public List<AppInfo> ListAPP(Object appInfo);
+	/**
+	 * 查询app信息
+	 */
+	AppInfo queryid(@Param("id") String id);
+	 /**
+	  * 查询历史版本
+	  * @param id
+	  * @return
+	  */
+	 List<AppInfo> queryids(@Param("id") String id);
 }

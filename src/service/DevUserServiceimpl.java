@@ -41,6 +41,18 @@ public class DevUserServiceimpl implements DevUserService{
 		return list;
 	}
 
+	@Override
+	public AppInfo queryid(String id) {
+		// TODO Auto-generated method stub
+		return devUserMapper.queryid(id);
+	}
+
+	@Override
+	public List<AppInfo> queryids(String id) {
+		// TODO Auto-generated method stub
+		return devUserMapper.queryids(id);
+	}
+
 
 	
 }

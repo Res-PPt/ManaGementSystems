@@ -12,6 +12,15 @@
         <!-- 自动扫描注解 -->
         <context:component-scan base-package="controller"></context:component-scan>
        
+       
+       <!-- Spring MVC ajax 返回中文解决中文问号  -->  
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+<!-- Class = 编码处理类路径 -->  
+			<bean class="util.UTF8StringHttpMessageConverter"/>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+       
     <!--    	默认寻找jsp，css，图片默认地址前提是设置好的
        	<mvc:default-servlet-handler/>  
        
@@ -27,5 +36,14 @@
 		 <property name="prefix" value="/WEB-INF/jsp/"></property>
 		 <property name="suffix" value=".jsp"></property>
 		 </bean>        
+		 
+<!-- 		 <mvc:interceptors>
+	  <mvc:interceptor>
+	  两个星号
+	    <mvc:mapping path="/**"/>
+	    使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求，此为自定义拦截器的路径
+	    <bean class="interceptor.LoginInterceptor"/>
+	  </mvc:interceptor>
+    </mvc:interceptors> -->
         
 </beans>
