@@ -61,15 +61,13 @@ public class DevUserController {
 	 * @return
 	 */
 	@RequestMapping("/list")
-	public String list(Object appInfo,HttpServletRequest request){
+	public String list(AppInfo appInfo,HttpServletRequest request){
 		/**
 		 * 首先判断是否为空如果为空那就先把他给添加下拉框和分页
 		 */
-		if(appInfo==null) {
-			
-		}
-		List<AppInfo> list=DevUserService.Arlist(appInfo);
-		request.setAttribute("status", list);
+		List<AppInfo> list = DevUserService.ListAPP(appInfo);
+		request.setAttribute("appInfoList", list);
+		System.out.println(list.size());
 		return "developer/appinfolist";
 	}
 	
@@ -80,6 +78,8 @@ public class DevUserController {
 	 */
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request){
+		
+		
 		request.getSession().removeAttribute("devUserSession");
 		return "devlogin";
 	}

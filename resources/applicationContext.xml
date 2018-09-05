@@ -35,17 +35,18 @@
         <property name="dataSource" ref="dataSource" />
         <!-- 引用MyBatis配置文件中的配置 -->
         <property name="configLocation" value="classpath:mybatis-config.xml" />
-        <property name="plugins">
-            <array>
-                <bean class="com.github.pagehelper.PageInterceptor">
-                    <property name="properties">
-                        <value>
-　　　　　　　　　　　　　　　　helperDialect=mysql
-　　　　　　　　　　　　　　</value>
-                    </property>
-                </bean>
-            </array>
-        </property>
+    <!--   <property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<property name="properties">
+						<value>
+							helperDialect=MySQL
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>  -->
+      
     </bean>
     
       <!-- 配置DAO -->

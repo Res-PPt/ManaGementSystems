@@ -8,176 +8,215 @@ import java.sql.Date;
  *
  */
 public class AppInfo {
-	private AppInfoData data = new AppInfoData();
+	private int id;//主键
+	private String softwareName;//软件名称
+	private String APKName;//APK名称
+	private String supportROM;//支持ROM
+	private String interfaceLanguage;//界面语言
+	private double softwareSize;//软件大小
+	private Date updateDate;//更新日期
+	private int devld;//开发者Id
+	private String appInfo;//应用简介
+	private int status;//状态
+	private Date onSaleDate;//上架时间
+	private Date offSaleDate;//下架时间
+	private int flatformId;//所属平台
+	private int categoryLevel3;//所属三级分类
+	private int downloads;//下载量
+	private int createdBy;//创建者
+	private Date creationDate;//创建时间
+	private int modifyBy;//更新者
+	private Date modifyDate;//最新更新时间
+	private int categoryLevel1;//所属一级分类
+	private int categoryLevel2;//所属二级分类
+	private String logoPicPath;//LOGO图片url路径
+	private String logoLocPath;//LOGO图片的服务器存储路径
+	private int versionId;//最新的版本id
+	private String categoryLevel1Name;//一级名称
+	private String categoryLevel2Name;//二级名称
+	private String categoryLevel3Name;//三级名称
+	private String flatformName;//所属平台
+	private String statusName;//状态
+	private String versionNo;//最新版本号
 	public int getId() {
-		return data.id;
+		return id;
 	}
 	public void setId(int id) {
-		this.data.id = id;
+		this.id = id;
 	}
 	public String getSoftwareName() {
-		return data.softwareName;
+		return softwareName;
 	}
 	public void setSoftwareName(String softwareName) {
-		this.data.softwareName = softwareName;
+		this.softwareName = softwareName;
 	}
 	public String getAPKName() {
-		return data.APKName;
+		return APKName;
 	}
 	public void setAPKName(String aPKName) {
-		data.APKName = aPKName;
+		APKName = aPKName;
 	}
 	public String getSupportROM() {
-		return data.supportROM;
+		return supportROM;
 	}
 	public void setSupportROM(String supportROM) {
-		this.data.supportROM = supportROM;
+		this.supportROM = supportROM;
 	}
 	public String getInterfaceLanguage() {
-		return data.interfaceLanguage;
+		return interfaceLanguage;
 	}
 	public void setInterfaceLanguage(String interfaceLanguage) {
-		this.data.interfaceLanguage = interfaceLanguage;
+		this.interfaceLanguage = interfaceLanguage;
 	}
 	public double getSoftwareSize() {
-		return data.softwareSize;
+		return softwareSize;
 	}
 	public void setSoftwareSize(double softwareSize) {
-		this.data.softwareSize = softwareSize;
+		this.softwareSize = softwareSize;
 	}
 	public Date getUpdateDate() {
-		return data.updateDate;
+		return updateDate;
 	}
 	public void setUpdateDate(Date updateDate) {
-		this.data.updateDate = updateDate;
+		this.updateDate = updateDate;
 	}
 	public int getDevld() {
-		return data.devld;
+		return devld;
 	}
 	public void setDevld(int devld) {
-		this.data.devld = devld;
+		this.devld = devld;
 	}
 	public String getAppInfo() {
-		return data.appInfo;
+		return appInfo;
 	}
 	public void setAppInfo(String appInfo) {
-		this.data.appInfo = appInfo;
+		this.appInfo = appInfo;
 	}
 	public int getStatus() {
-		return data.status;
+		return status;
 	}
 	public void setStatus(int status) {
-		this.data.status = status;
+		this.status = status;
 	}
 	public Date getOnSaleDate() {
-		return data.onSaleDate;
+		return onSaleDate;
 	}
 	public void setOnSaleDate(Date onSaleDate) {
-		this.data.onSaleDate = onSaleDate;
+		this.onSaleDate = onSaleDate;
 	}
 	public Date getOffSaleDate() {
-		return data.offSaleDate;
+		return offSaleDate;
 	}
 	public void setOffSaleDate(Date offSaleDate) {
-		this.data.offSaleDate = offSaleDate;
+		this.offSaleDate = offSaleDate;
 	}
 	public int getFlatformId() {
-		return data.flatformId;
+		return flatformId;
 	}
 	public void setFlatformId(int flatformId) {
-		this.data.flatformId = flatformId;
+		this.flatformId = flatformId;
 	}
 	public int getCategoryLevel3() {
-		return data.categoryLevel3;
+		return categoryLevel3;
 	}
 	public void setCategoryLevel3(int categoryLevel3) {
-		this.data.categoryLevel3 = categoryLevel3;
+		this.categoryLevel3 = categoryLevel3;
 	}
 	public int getDownloads() {
-		return data.downloads;
+		return downloads;
 	}
 	public void setDownloads(int downloads) {
-		this.data.downloads = downloads;
+		this.downloads = downloads;
 	}
 	public int getCreatedBy() {
-		return data.createdBy;
+		return createdBy;
 	}
 	public void setCreatedBy(int createdBy) {
-		this.data.createdBy = createdBy;
+		this.createdBy = createdBy;
 	}
 	public Date getCreationDate() {
-		return data.creationDate;
+		return creationDate;
 	}
 	public void setCreationDate(Date creationDate) {
-		this.data.creationDate = creationDate;
+		this.creationDate = creationDate;
 	}
 	public int getModifyBy() {
-		return data.modifyBy;
+		return modifyBy;
 	}
 	public void setModifyBy(int modifyBy) {
-		this.data.modifyBy = modifyBy;
+		this.modifyBy = modifyBy;
 	}
 	public Date getModifyDate() {
-		return data.modifyDate;
+		return modifyDate;
 	}
 	public void setModifyDate(Date modifyDate) {
-		this.data.modifyDate = modifyDate;
+		this.modifyDate = modifyDate;
 	}
 	public int getCategoryLevel1() {
-		return data.categoryLevel1;
+		return categoryLevel1;
 	}
 	public void setCategoryLevel1(int categoryLevel1) {
-		this.data.categoryLevel1 = categoryLevel1;
+		this.categoryLevel1 = categoryLevel1;
 	}
 	public int getCategoryLevel2() {
-		return data.categoryLevel2;
+		return categoryLevel2;
 	}
 	public void setCategoryLevel2(int categoryLevel2) {
-		this.data.categoryLevel2 = categoryLevel2;
+		this.categoryLevel2 = categoryLevel2;
 	}
 	public String getLogoPicPath() {
-		return data.logoPicPath;
+		return logoPicPath;
 	}
 	public void setLogoPicPath(String logoPicPath) {
-		this.data.logoPicPath = logoPicPath;
+		this.logoPicPath = logoPicPath;
 	}
 	public String getLogoLocPath() {
-		return data.logoLocPath;
+		return logoLocPath;
 	}
 	public void setLogoLocPath(String logoLocPath) {
-		this.data.logoLocPath = logoLocPath;
+		this.logoLocPath = logoLocPath;
 	}
 	public int getVersionId() {
-		return data.versionId;
+		return versionId;
 	}
 	public void setVersionId(int versionId) {
-		this.data.versionId = versionId;
-	}
-	public String getFlatformName() {
-		return data.flatformName;
-	}
-	public void setFlatformName(String flatformName) {
-		this.data.flatformName = flatformName;
+		this.versionId = versionId;
 	}
 	public String getCategoryLevel1Name() {
-		return data.categoryLevel1Name;
+		return categoryLevel1Name;
 	}
 	public void setCategoryLevel1Name(String categoryLevel1Name) {
-		this.data.categoryLevel1Name = categoryLevel1Name;
+		this.categoryLevel1Name = categoryLevel1Name;
 	}
 	public String getCategoryLevel2Name() {
-		return data.categoryLevel2Name;
+		return categoryLevel2Name;
 	}
 	public void setCategoryLevel2Name(String categoryLevel2Name) {
-		this.data.categoryLevel2Name = categoryLevel2Name;
+		this.categoryLevel2Name = categoryLevel2Name;
 	}
 	public String getCategoryLevel3Name() {
-		return data.categoryLevel3Name;
+		return categoryLevel3Name;
+	}
+	public void setCategoryLevel3Name(String categoryLevel3Name) {
+		this.categoryLevel3Name = categoryLevel3Name;
+	}
+	public String getFlatformName() {
+		return flatformName;
+	}
+	public void setFlatformName(String flatformName) {
+		this.flatformName = flatformName;
+	}
+	public String getStatusName() {
+		return statusName;
+	}
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
 	}
 	public String getVersionNo() {
-		return data.versionNo;
+		return versionNo;
 	}
 	public void setVersionNo(String versionNo) {
-		this.data.versionNo = versionNo;
+		this.versionNo = versionNo;
 	}
+
 }

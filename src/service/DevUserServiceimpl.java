@@ -35,10 +35,12 @@ public class DevUserServiceimpl implements DevUserService{
 	}
 
 	@Override
-	public List<AppInfo> Arlist(Object appInfo) {
+	public List<AppInfo> ListAPP(Object appInfo) {
 		// TODO Auto-generated method stub
-		return devUserMapper.Arrlist(appInfo);
+		List<AppInfo> list = devUserMapper.ListAPP(appInfo);
+		return list;
 	}
+
 
 	
 }

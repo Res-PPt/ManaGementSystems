@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import entity.AppInfo;
 import service.AppServiceimpl;
 @Controller
@@ -32,6 +33,8 @@ public class AppController {
 		String categoryLevel33 = request.getParameter("queryCategoryLevel3");//Èí¼þÃû³Æ
 		AppInfo app = new AppInfo();
 		app.setSoftwareName(softwareName);
+		
+	
 		int flatformId=0;
 		int categoryLevel1=0;
 		int categoryLevel2=0;
@@ -53,6 +56,7 @@ public class AppController {
 		app.setCategoryLevel2(categoryLevel2);
 		app.setCategoryLevel3(categoryLevel3);
 		List<AppInfo> list = appServiceimpl.queryAPP(app);
+		
 		request.setAttribute("appInfoList",list);
 		return "backend/applist";
 	}
