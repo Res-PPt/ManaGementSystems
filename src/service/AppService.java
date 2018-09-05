@@ -2,7 +2,12 @@ package service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import entity.AppCategory;
 import entity.AppInfo;
+import entity.AppVersion;
+import entity.DataDictionary;
 
 public interface AppService {
 	/**
@@ -10,5 +15,38 @@ public interface AppService {
 	 * @param appInfo
 	 * @return
 	 */
-	public List<AppInfo> queryAPP(Object appInfo);
+	public List<AppInfo> queryAPP(AppInfo appInfo);
+	/**
+	 * 查询一级名称
+	 * @return
+	 */
+	public List<AppCategory> queryApp1();
+	
+	/**
+	 * 查询全部平台
+	 * @return
+	 */
+	public List<DataDictionary> queryType();
+	/**
+	 * 查询二，三级名称
+	 * @return
+	 */
+	public List<AppCategory> queryApp2(Object pid);
+	/**
+	 * 根据版本id查询App信息
+	 * @return
+	 */
+	public AppInfo queryVersionid(Object versionid);
+	/**
+	 * 根据id查询版本信息
+	 * @return
+	 */
+	public AppVersion queryVId(Object id);
+	/**
+	 * 根据条件修改APP信息
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public int updapp(String id,String status);
 }

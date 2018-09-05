@@ -163,9 +163,9 @@
 										<td>${appInfo.softwareSize }</td>
 										<td>${appInfo.flatformName }</td>
 										<td>${appInfo.categoryLevel1Name } -> ${appInfo.categoryLevel2Name } -> ${appInfo.categoryLevel3Name }</td>
-										<td>${appInfo.statusName }</td>
-										<td>${appInfo.downloads }</td>
-										<td>${appInfo.versionNo }</td>
+										<td>${appInfo.statusName}</td>
+										<td>${appInfo.downloads}</td>
+										<td>${appInfo.versionNo}</td>
 										<td>
 										<button type="button" class="btn btn-default checkApp" 
 											appinfoid="${appInfo.id }" versionid="${appInfo.versionId }" status="${appInfo.status }" 

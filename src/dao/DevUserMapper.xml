@@ -17,9 +17,8 @@
 	<select id="queryPwd" resultType="DevUser">
 		SELECT *from dev_user WHERE devPassword=#{devPassword}
 	</select>
-	
 	<!-- 模糊查询 -->
-<!-- 	<select id="Arrlist" resultType="AppInfo" parameterType="AppInfo">
+	<select id="Arrlist" resultType="AppInfo" parameterType="AppInfo">
 	select softwareName,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
 	,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' and b.valueId  LIKE CONCAT('%',#{versionId},'%'))
 	 as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
@@ -32,17 +31,8 @@
 	and (select categoryName from app_category c where a.categoryLevel3=c.id)  LIKE CONCAT('%',#{categoryLevel2},'%')
 		
 	</select>
-	 -->
-	<!-- 动态三级分类 -->
-<!-- 	<select id="categoryLevel" resultType="AppInfo">
-	SELECT *from app_category
-	<where>
-		<if test=""></if>
-	</where>
-	
-	</select> -->
-	<!-- 模糊查询 -->
 
+	<!-- 模糊查询 -->
 	<select id="ListAPP" resultType="AppInfo" parameterType="AppInfo">
 	select softwareName,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
 	,id,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' )
@@ -98,6 +88,4 @@ select softwareName,apkName as appName,softwareSize
 ,(select apkFileName from app_version v where a.versionId=v.id) as apkFileName,updateDate
 	from app_info a  where id=#{id}
 </select> 
-
-
 </mapper>

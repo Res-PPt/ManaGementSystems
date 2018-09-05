@@ -34,6 +34,7 @@ public class DevUserServiceimpl implements DevUserService{
 		return devUserMapper.queryPwd(userPassword);
 	}
 
+
 	@Override
 	public List<AppInfo> ListAPP(Object appInfo) {
 		// TODO Auto-generated method stub
@@ -50,8 +51,9 @@ public class DevUserServiceimpl implements DevUserService{
 	@Override
 	public List<AppInfo> queryids(String id) {
 		// TODO Auto-generated method stub
-		return devUserMapper.queryids(id);
+		return null;
 	}
+
 
 
 	

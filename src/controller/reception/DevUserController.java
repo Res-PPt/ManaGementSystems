@@ -60,11 +60,8 @@ public class DevUserController {
 		return "devlogin";
 	}
 }
-	/**
-	 * 第一次进入页面先把下拉框添加进去
-	 * @param request
-	 * @return
-	 */
+
+
 	@RequestMapping("/list")
 	public String list(AppInfo appInfo,HttpServletRequest request){
 		/**

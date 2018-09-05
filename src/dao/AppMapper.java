@@ -2,8 +2,11 @@ package dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import entity.AppCategory;
 import entity.AppInfo;
+import entity.AppVersion;
 import entity.DataDictionary;
 
 public interface AppMapper {
@@ -14,13 +17,36 @@ public interface AppMapper {
 	 */
 	public List<AppInfo> queryAPP(Object appInfo);
 	/**
-	 * 查询平台信息
+	 * 查询全部平台
 	 * @return
 	 */
-	public List<DataDictionary> queryData();
+	public List<DataDictionary> queryType();
 	/**
 	 * 查询一级名称
 	 * @return
 	 */
-	public List<AppCategory> queryApp();
+	public List<AppCategory> queryApp1();
+	/**
+	 * 查询二，三级名称
+	 * @return
+	 */
+	public List<AppCategory> queryApp2(Object pid);
+	/**
+	 * 根据版本id查询App信息
+	 * @return
+	 */
+	public AppInfo queryVersionid(Object versionid);
+	/**
+	 * 根据id查询版本信息
+	 * @param id
+	 * @return
+	 */
+	public AppVersion queryVId(Object id);
+	/**
+	 * 根据条件修改APP信息
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public int updapp(@Param("id")String id,@Param("status") String status);
 }
