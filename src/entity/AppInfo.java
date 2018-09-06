@@ -42,7 +42,20 @@ public class AppInfo {
 	private String flatformName;//所属平台
 	private String statusName;//状态
 	private String versionNo;//最新版本号
-	
+	private Integer currentPageNo;//所在页数
+	private Integer num;//每页显示地数量
+	public Integer getCurrentPageNo() {
+		return currentPageNo;
+	}
+	public void setCurrentPageNo(Integer currentPageNo) {
+		this.currentPageNo = currentPageNo;
+	}
+	public Integer getNum() {
+		return num;
+	}
+	public void setNum(Integer num) {
+		this.num = num;
+	}
 	public String getApklocPath() {
 		return apklocPath;
 	}

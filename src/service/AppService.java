@@ -8,6 +8,7 @@ import entity.AppCategory;
 import entity.AppInfo;
 import entity.AppVersion;
 import entity.DataDictionary;
+import entity.pages;
 
 public interface AppService {
 	/**
@@ -15,7 +16,14 @@ public interface AppService {
 	 * @param appInfo
 	 * @return
 	 */
+	//public List<AppInfo> queryAPP(AppInfo appInfo,Integer currentPageNo,Integer num);
 	public List<AppInfo> queryAPP(AppInfo appInfo);
+	/**
+	 * 根据条件查询APP信息的条数
+	 * @param appInfo
+	 * @return
+	 */
+	public int queryAPP1(AppInfo appInfo);
 	/**
 	 * 查询一级名称
 	 * @return
@@ -49,4 +57,10 @@ public interface AppService {
 	 * @return
 	 */
 	public int updapp(String id,String status);
+	/**
+	 * 查询共有多少页
+	 * @param pages
+	 * @return
+	 */
+	public int AppYe(int result,int num1);
 }

@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import entity.AppCategory;
 import entity.AppInfo;
 import entity.AppVersion;
 import entity.DataDictionary;
+import entity.pages;
 @Service("AppMapper")
 public class AppServiceimpl implements AppService{
 	@Autowired
@@ -19,6 +21,13 @@ public class AppServiceimpl implements AppService{
 	 */
 	public List<AppInfo> queryAPP(AppInfo appInfo) {
 		List<AppInfo> list = appMapper.queryAPP(appInfo);
+		return list;
+	}
+	/**
+	 * 根据条件查询APP信息
+	 */
+	public int queryAPP1(AppInfo appInfo) {
+		int list = appMapper.queryAPP1(appInfo);
 		return list;
 	}
 	/**
@@ -61,6 +70,14 @@ public class AppServiceimpl implements AppService{
 	 */
 	public int updapp(String id, String status) {
 		int num = appMapper.updapp(id, status);
+		return num;
+	}
+	/**
+	 * 
+	 */
+	public int AppYe(int result,int num1) {
+		int num = result%num1==0?result/num1:(result/num1)+1;
+		//num = num1%5==0?num1/5:(num1/5)+1;
 		return num;
 	}
 

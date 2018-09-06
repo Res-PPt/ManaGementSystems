@@ -15,7 +15,15 @@ public interface AppMapper {
 	 * @param appInfo
 	 * @return
 	 */
-	public List<AppInfo> queryAPP(Object appInfo);
+	//public List<AppInfo> queryAPP(AppInfo appInfo,@Param("currentPageNo")Integer currentPageNo,@Param("num") Integer num);
+	public List<AppInfo> queryAPP(AppInfo appInfo);
+	/**
+	 * 根据条件查询APP信息的条数
+	 * @param appInfo
+	 * @return
+	 */
+	public int queryAPP1(AppInfo appInfo);
+	
 	/**
 	 * 查询全部平台
 	 * @return

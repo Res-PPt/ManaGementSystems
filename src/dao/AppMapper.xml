@@ -7,7 +7,32 @@
  as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
 (select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,versionid,
 (select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,(select versionNo from app_version v where a.versionId=v.id) as versionNo
-from app_info a where (select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' and b.valueId=1) ='待审核'
+from app_info a where a.`status`=1
+		<if test="softwareName!=null and softwareName!=''">
+		and softwareName LIKE concat('%',#{softwareName},'%') 
+	</if>
+	<if test="flatformId!=null and flatformId!=0">
+		and flatformId =#{flatformId}
+	</if>
+	<if test="categoryLevel1!=null and categoryLevel1!=0">
+		and categoryLevel1 =#{categoryLevel1}
+	</if>
+	<if test="categoryLevel2!=null and categoryLevel2!=0">
+		and categoryLevel2 = #{categoryLevel2}
+	</if>
+	<if test="categoryLevel3!=null and categoryLevel3!=0">
+		and categoryLevel3 =#{categoryLevel3}
+	</if>
+	LIMIT #{currentPageNo},#{num}
+	</select>
+	<!-- 查询APP条数 -->
+	<select id="queryAPP1" resultType="int" parameterType="AppInfo">
+	select count(id),softwareName,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
+,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态')
+ as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
+(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,versionid,
+(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,(select versionNo from app_version v where a.versionId=v.id) as versionNo
+from app_info a where a.`status`=1
 		<if test="softwareName!=null and softwareName!=''">
 		and softwareName LIKE concat('%',#{softwareName},'%') 
 	</if>
@@ -41,7 +66,7 @@ from app_info a where (select valueName from data_dictionary b where a.status=b.
 		(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,versionid,
 		(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
 		(select versionNo from app_version v where a.versionId=v.id) as versionNo,appInfo,logoPicPath
-		from app_info a where (select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' and b.valueId=1) ='待审核' 
+		from app_info a where a.`status`=1 
 		and versionid=#{versionid}
 	</select>
 	<select id="queryVId" resultType="AppVersion" parameterType="Object">

@@ -23,6 +23,7 @@ import entity.AppCategory;
 import entity.AppInfo;
 import entity.AppVersion;
 import entity.DataDictionary;
+import entity.pages;
 import service.AppServiceimpl;
 @Controller
 @RequestMapping("/manager")
@@ -30,6 +31,8 @@ public class AppController {
 	@Autowired
 	@Qualifier("AppMapper")
 	private AppServiceimpl appServiceimpl;
+//	@Autowired
+//	private pages pages;
 	
 	/**
 	 * 查询全部需要审核的APP信息
@@ -43,13 +46,7 @@ public class AppController {
 		String categoryLevel11 = request.getParameter("queryCategoryLevel1");//一级分类值
 		String categoryLevel22 = request.getParameter("queryCategoryLevel2");//二级分类值
 		String categoryLevel33 = request.getParameter("queryCategoryLevel3");//三级分类值
-		List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
-		List<DataDictionary> acc = appServiceimpl.queryType();//查询平台信息
-		System.out.println(acc.size());
 		AppInfo app = new AppInfo();
-		app.setSoftwareName(softwareName);
-		
-	
 		int flatformId=0;
 		int categoryLevel1=0;
 		int categoryLevel2=0;
@@ -76,15 +73,42 @@ public class AppController {
 		request.setAttribute("queryCategoryLevel1",categoryLevel1);	
 		request.setAttribute("queryCategoryLevel2",categoryLevel2);
 		request.setAttribute("queryCategoryLevel3",categoryLevel3);
-		List<AppInfo> list = appServiceimpl.queryAPP(app);
+		List<DataDictionary> acc = appServiceimpl.queryType();//查询平台信息
+		System.out.println(acc.size());
 		request.setAttribute("flatFormList", acc);
+		List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
 		request.setAttribute("categoryLevel1List",acp);
-
-		List<AppInfo> lista = appServiceimpl.queryAPP(app);
 		
-		request.setAttribute("appInfoList",lista);
 		
-		request.setAttribute("appInfoList",list);
+		String pageIndex = request.getParameter("pageIndex");//当前页数
+		int currentPageNo=1;
+		if(pageIndex!=null){
+			currentPageNo= Integer.valueOf(pageIndex);
+		}
+		
+		int num1 = appServiceimpl.queryAPP1(app);//查询APP信息条数
+		int num = 5;//每页显示多少条数据
+		int totalPageCount = appServiceimpl.AppYe(num1,num);//共有多少页
+		pages pages = new pages();
+		pages.setCurrentPageNo(currentPageNo);
+		pages.setTotalCount(num1);//共有多少条数据
+		pages.setTotalPageCount(totalPageCount);
+		request.setAttribute("pages", pages);
+		System.out.println("currentPageNo"+currentPageNo);
+		currentPageNo = (currentPageNo-1)*num;
+		app.setNum(num);
+		app.setCurrentPageNo(currentPageNo);
+		System.out.println("currentPageNo"+currentPageNo);
+		System.out.println("num+"+num);
+		
+		/*AppInfo app1 = new AppInfo();
+		app1.setSoftwareName(softwareName);
+		app1.setFlatformId(flatformId);
+		app1.setCategoryLevel1(categoryLevel1);
+		app1.setCategoryLevel2(categoryLevel2);
+		app1.setCategoryLevel3(categoryLevel3);*/
+		List<AppInfo> list = appServiceimpl.queryAPP(app);//查询APP信息
+		request.setAttribute("appInfoList",list);//将查询到的App信息保存的页面
 		return "backend/applist";
 	}
 	@ResponseBody
