@@ -73,12 +73,19 @@ public class AppServiceimpl implements AppService{
 		return num;
 	}
 	/**
-	 * 
+	 * 查询共有多少页
 	 */
 	public int AppYe(int result,int num1) {
 		int num = result%num1==0?result/num1:(result/num1)+1;
 		//num = num1%5==0?num1/5:(num1/5)+1;
 		return num;
+	}
+	/**
+	 * 查询级别名称
+	 */
+	public List<AppCategory> queryApp3() {
+		List<AppCategory> list = appMapper.queryApp3();
+		return list;
 	}
 
 }

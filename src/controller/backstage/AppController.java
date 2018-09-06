@@ -51,34 +51,46 @@ public class AppController {
 		int categoryLevel1=0;
 		int categoryLevel2=0;
 		int categoryLevel3=0;
+		List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
+		List<AppCategory> acct = appServiceimpl.queryApp3();//查询级别名称
 		if(flatformId1!=null&&!"".equals(flatformId1)){
 			flatformId=Integer.valueOf(flatformId1);
 		}
 		if(categoryLevel11!=null&&!"".equals(categoryLevel11)){
 			categoryLevel1=Integer.valueOf(categoryLevel11);
+			request.setAttribute("categoryLevel1List",acp);
+			
 		}
 		if(categoryLevel22!=null&&!"".equals(categoryLevel22)){
 			categoryLevel2=Integer.valueOf(categoryLevel22);
+			request.setAttribute("categoryLevel2List",acct);
+			
 		}
 		if(categoryLevel33!=null&&!"".equals(categoryLevel33)){
 			categoryLevel3=Integer.valueOf(categoryLevel33);
+			request.setAttribute("categoryLevel3List",acct);
+			
 		}
 		app.setSoftwareName(softwareName);
 		app.setFlatformId(flatformId);
 		app.setCategoryLevel1(categoryLevel1);
 		app.setCategoryLevel2(categoryLevel2);
 		app.setCategoryLevel3(categoryLevel3);
-		request.setAttribute("querySoftwareName",softwareName);
-		request.setAttribute("queryFlatformId",flatformId);
-		request.setAttribute("queryCategoryLevel1",categoryLevel1);	
-		request.setAttribute("queryCategoryLevel2",categoryLevel2);
-		request.setAttribute("queryCategoryLevel3",categoryLevel3);
-		List<DataDictionary> acc = appServiceimpl.queryType();//查询平台信息
-		System.out.println(acc.size());
-		request.setAttribute("flatFormList", acc);
-		List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
-		request.setAttribute("categoryLevel1List",acp);
 		
+		List<DataDictionary> acc = appServiceimpl.queryType();//查询平台信息
+		request.setAttribute("flatFormList", acc);
+		
+		request.setAttribute("categoryLevel1List",acp);
+	
+		request.setAttribute("querySoftwareName",softwareName);//软件名称
+		request.setAttribute("queryFlatformId",flatformId);//所属平台Id
+		request.setAttribute("queryCategoryLevel1",categoryLevel1);//一级Id
+		request.setAttribute("queryCategoryLevel2",categoryLevel2);//二级Id
+		request.setAttribute("queryCategoryLevel3",categoryLevel3);//三级Id
+		
+
+		System.out.println("categoryLevelList"+categoryLevel2);
+		System.out.println("categoryLevel3List"+categoryLevel3);
 		
 		String pageIndex = request.getParameter("pageIndex");//当前页数
 		int currentPageNo=1;
@@ -94,19 +106,10 @@ public class AppController {
 		pages.setTotalCount(num1);//共有多少条数据
 		pages.setTotalPageCount(totalPageCount);
 		request.setAttribute("pages", pages);
-		System.out.println("currentPageNo"+currentPageNo);
 		currentPageNo = (currentPageNo-1)*num;
 		app.setNum(num);
 		app.setCurrentPageNo(currentPageNo);
-		System.out.println("currentPageNo"+currentPageNo);
-		System.out.println("num+"+num);
 		
-		/*AppInfo app1 = new AppInfo();
-		app1.setSoftwareName(softwareName);
-		app1.setFlatformId(flatformId);
-		app1.setCategoryLevel1(categoryLevel1);
-		app1.setCategoryLevel2(categoryLevel2);
-		app1.setCategoryLevel3(categoryLevel3);*/
 		List<AppInfo> list = appServiceimpl.queryAPP(app);//查询APP信息
 		request.setAttribute("appInfoList",list);//将查询到的App信息保存的页面
 		return "backend/applist";
@@ -144,6 +147,8 @@ public class AppController {
 	@RequestMapping("/check")
 	public String check(HttpServletRequest request){
 		String vid = request.getParameter("vid");
+		String aid = request.getParameter("aid");
+		System.out.println("类型"+aid);
 		AppInfo app = appServiceimpl.queryVersionid(vid);
 		AppVersion acp = appServiceimpl.queryVId(vid);
 		request.setAttribute("appVersion",acp);

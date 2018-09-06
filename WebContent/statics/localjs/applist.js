@@ -61,7 +61,6 @@ $(".checkApp").on("click",function(){
 	var obj = $(this);
 	var status = obj.attr("status");
 	var vid = obj.attr("versionid");
-	alert(vid)
 	if( vid!=0){//待审核状态下才可以进行审核操作
 		window.location.href="check?aid="+ obj.attr("appinfoid") + "&vid="+ obj.attr("versionid");
 	}else if(vid==0){

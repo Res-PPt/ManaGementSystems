@@ -40,6 +40,11 @@ public interface AppMapper {
 	 */
 	public List<AppCategory> queryApp2(Object pid);
 	/**
+	 * 查询级别名称
+	 * @return
+	 */
+	public List<AppCategory> queryApp3();
+	/**
 	 * 根据版本id查询App信息
 	 * @return
 	 */
