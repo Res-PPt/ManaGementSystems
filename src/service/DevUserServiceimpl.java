@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import dao.DevUserMapper;
 import dao.UserMapper;
 import entity.AppInfo;
+import entity.AppVersion;
 import entity.BackendUser;
 import entity.DevUser;
 
@@ -42,6 +43,26 @@ public class DevUserServiceimpl implements DevUserService{
 		return list;
 	}
 
+
+
+	@Override
+	public int delappinfo(String id) {
+		// TODO Auto-generated method stub
+		return devUserMapper.delappinfo(id);
+	}
+
+	@Override
+	public int delappidv(String appid) {
+		// TODO Auto-generated method stub
+		return devUserMapper.delappidv(appid);
+	}
+
+	@Override
+	public int quertinfoid(String id) {
+		// TODO Auto-generated method stub
+		return devUserMapper.quertinfoid(id);
+	}
+
 	@Override
 	public AppInfo queryid(String id) {
 		// TODO Auto-generated method stub
@@ -49,11 +70,12 @@ public class DevUserServiceimpl implements DevUserService{
 	}
 
 	@Override
-	public List<AppInfo> queryids(String id) {
+	public List<AppVersion> queryids(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return devUserMapper.queryids(id);
 	}
 
+	
 
 
 	

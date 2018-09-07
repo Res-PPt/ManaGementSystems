@@ -34,10 +34,10 @@
 
 	<!-- 模糊查询 -->
 	<select id="ListAPP" resultType="AppInfo" parameterType="AppInfo">
-	select softwareName,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
+	select softwareName,`status`,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
 	,id,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' )
  	as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
-	(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,`status`,
+	(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,
 	(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
 	(select versionNo from app_version v where a.versionId=v.id) as versionNo
 	from app_info a
@@ -71,21 +71,37 @@
 </select>
 
 <!-- 查看自己的信息 -->
-<select id="queryid" resultType="AppInfo">
-	select softwareName,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
-	,supportROM,interfaceLanguage,appInfo,id,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' )
- 	as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
-	(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,
-	(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
-	(select versionNo from app_version v where a.versionId=v.id) as versionNo,logoPicPath
-	from app_info a  where id =#{id}
-</select>
+	<select id="queryid" resultType="AppInfo">
+					select id,softwareName,apkName,supportROM,interfaceLanguage,softwareSize,downloads,
+			(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
+			,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态')
+			 as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
+			(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,versionid,
+			(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
+			(select versionNo from app_version v where a.versionId=v.id) as versionNo,appInfo,logoPicPath
+			from app_info a where id=#{id}
+	</select>
 
-<select id="queryids" resultType="AppInfo">
-select softwareName,apkName as appName,softwareSize
-	,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='发布状态' )
- 	as statusName,(select apkLocPath from app_version v where a.versionId=v.id) as apkLocPath
-,(select apkFileName from app_version v where a.versionId=v.id) as apkFileName,updateDate
-	from app_info a  where id=#{id}
-</select> 
+	<select id="queryids" resultType="AppVersion">
+					select versionNo,versionSize,apkFileName,downloadLink,apkLocPath,(SELECT softwareName FROM app_info a WHERE a.id=v.appId) 
+					as softwareName,modifyDate,(SELECT  valueName from data_dictionary d WHERE v.publishStatus=d.valueId and typeName='发布状态') as flatformName from app_version v
+					WHERE appId=#{appId} ORDER BY modifyDate DESC
+	</select> 
+
+	<!-- 删除app信息得删除双表 -->
+	<delete id="delappinfo">
+	DELETE FROM app_info WHERE id=#{id}
+	</delete>
+	<delete id="delappidv">
+	DELETE FROM app_version WHERE appid=#{appid}
+	</delete>
+
+	<select id="quertinfoid" resultType="int">
+	SELECT *from app_info WHERE id #{id}
+	</select>
+
+
+
+
+
 </mapper>

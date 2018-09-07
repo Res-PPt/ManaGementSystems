@@ -165,16 +165,16 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="appVersion" items="${appVersionList }" varStatus="status">
+						<c:forEach var="appVersion" items="${appVersionList }" varStatus="status">
 								<tr role="row" class="odd">
 									<td tabindex="0" class="sorting_1">${appVersion.softwareName}</td>
 									<td>${appVersion.versionNo }</td>
-									<td>${appVersion.softwareSize }</td>
+									<td>${appVersion.versionSize }</td>
 									<td>${appVersion.flatformName }</td>
 									<td>
 									<a href="${appVersion.apkLocPath }">${appVersion.apkFileName }</a>
 									</td>
-									<td><fmt:formatDate value="${appVersion.updateDate }" pattern="yyyy-MM-dd"/></td>
+									<td><fmt:formatDate value="${appVersion.modifyDate}" pattern="yyyy-MM-dd"/></td>
 								</tr>
 							</c:forEach>
 						</tbody>

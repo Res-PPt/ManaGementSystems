@@ -127,7 +127,7 @@
 				<p><span style="color:red;font-weight: bold;">*注：1、大小不得超过500k.2、图片格式：jpg、png、jpeg、pneg</span></p>
 				</div>
 				<div id="logoFile"></div>
-				${fileUploadError }
+				${fileUploadError}
             </div>
           </div>
           <div class="form-group">

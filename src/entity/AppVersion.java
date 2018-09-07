@@ -1,6 +1,6 @@
 package entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * APP版本信息表
@@ -17,10 +17,38 @@ public class AppVersion {
 	private double versionSize;//版本大小（单位：M）
 	private int createdBy;//创建者
 	private Date creationDate;//创建时间
+	private String softwareName;//软件名称
 	private int modifyBy;//更新者
 	private Date modifyDate;//最新更新时间
 	private String apkLocPath;//apk文件的服务器存储路径
 	private String apkFileName;//上传的apk文件名称
+	private String flatformName;
+	private Date updateDate;
+	private String APKName;//APK名称
+	public String getAPKName() {
+		return APKName;
+	}
+	public void setAPKName(String aPKName) {
+		APKName = aPKName;
+	}
+	public String getFlatformName() {
+		return flatformName;
+	}
+	public void setFlatformName(String flatformName) {
+		this.flatformName = flatformName;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	public String getSoftwareName() {
+		return softwareName;
+	}
+	public void setSoftwareName(String softwareName) {
+		this.softwareName = softwareName;
+	}
 	public int getId() {
 		return id;
 	}

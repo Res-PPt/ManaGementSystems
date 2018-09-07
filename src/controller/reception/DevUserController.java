@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+
 import entity.AppInfo;
+import entity.AppVersion;
 import entity.DevUser;
 import service.DevUserServiceimpl;
 /**
@@ -37,16 +40,13 @@ public class DevUserController {
 	 */
 	@RequestMapping("/dologin")
 	public String dologin(HttpServletRequest request){
-		DevUser dds=(DevUser)request.getAttribute("devUserSession");
-		if(dds!=null){
-			return "developer/main";
-		}
 		String devCode = request.getParameter("devCode");
 		String devPassword = request.getParameter("devPassword");
 		DevUser devUser =new DevUser();
 		devUser.setDevCode(devCode);
 		devUser.setDevPassword(devPassword);
 		DevUser bss = DevUserService.login(devUser);
+		
 		if(bss!=null){
 		request.setAttribute("devUserSession",bss);
 		return "developer/main";
@@ -80,12 +80,16 @@ public class DevUserController {
 	 */
 	@RequestMapping("/appview/{id}")
 	public String appview(@PathVariable String id,HttpServletRequest resquest) {
+		
+		System.out.println(id);
+		
+		List<AppVersion> list=DevUserService.queryids(id);
+		
 		AppInfo sa=DevUserService.queryid(id);
-		AppInfo appInfo=new AppInfo();
-		appInfo.setId(Integer.valueOf(id));
-		List<AppInfo> list=DevUserService.queryids(id);
+		
 		resquest.setAttribute("appInfo", sa);
 		resquest.setAttribute("appVersionList", list);
+		
 		return "developer/appinfoview";
 	}
 	
@@ -106,12 +110,50 @@ public class DevUserController {
 	/**
 	 * 删除
 	 */
-	
-	@RequestMapping(value="paginquery",produces = "text/html;charset=UTF-8")
 	   @ResponseBody
-	   public String Delid(HttpServletRequest reques,
-			   HttpServletResponse response) {
-				return null;
+	@RequestMapping(value="paginquery",produces = "text/html;charset=UTF-8")
+	   public Object Delid(HttpServletRequest reques,HttpServletResponse response) {
+		String id= reques.getParameter("id");
+		int ida=DevUserService.quertinfoid(id);
+		AppInfo appInfo =new AppInfo();
+		
+		String delResult;
+		if(ida<0) {
+			appInfo.setAPKName("notexist");
+			return JSON.toJSONString(appInfo);
+		}
+	
+		int ia=DevUserService.delappidv(id);
+		int ias=DevUserService.delappinfo(id);
+		if(ia>0){
+			appInfo.setAPKName("true");
+		}else {
+			appInfo.setAPKName("false");
+		}
+		String sr=JSON.toJSONString(appInfo);
+		
+		return sr;
 	}
+	   
+	   /**
+	    * 进入修改页面进行传值
+	    */
+	   @RequestMapping("/appinfomodify")
+	   public String appinfomodify(AppInfo appInfo,HttpServletRequest request) {
+		   String id= request.getParameter("id");
+		   if(id==null) {
+			   return "developer/appinfolist";
+		   }
+		   appInfo.setId(Integer.valueOf(id));
+		   
+		   
+		   return "developer/appinfomodify";
+	   }
+	   
+	   @RequestMapping("appinfomodifysave")
+	   public String appinfomodifysave(AppInfo appInfo,HttpServletRequest request) {
+		return "developer/appinfolist";
+		   
+	   }
 
 }

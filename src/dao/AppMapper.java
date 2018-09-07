@@ -38,7 +38,7 @@ public interface AppMapper {
 	 * 查询二，三级名称
 	 * @return
 	 */
-	public List<AppCategory> queryApp2(@Param("pid")Object pid);
+	public List<AppCategory> queryApp2(Object pid);
 	/**
 	 * 查询级别名称
 	 * @return
@@ -48,7 +48,7 @@ public interface AppMapper {
 	 * 根据版本id查询App信息
 	 * @return
 	 */
-	public AppInfo queryVersionid(Object id);
+	public AppInfo queryVersionid(Object versionid);
 	/**
 	 * 根据id查询版本信息
 	 * @param id

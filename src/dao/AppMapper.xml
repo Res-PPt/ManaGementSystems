@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="dao.AppMapper">
-<!-- 查询APP信息 -->
 <select id="queryAPP" resultType="AppInfo" parameterType="AppInfo">
 	select id,softwareName,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
 ,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态')
@@ -50,27 +49,18 @@ from app_info a where a.`status`=1
 		and categoryLevel3 =#{categoryLevel3}
 	</if>
 	</select>
-	<!-- 查询APP的级别 -->
+	<select id="queryApp1" resultType="AppCategory">
+		select * from app_category where parentId is NULL
+	</select>
 	<select id="queryApp3" resultType="AppCategory">
 		select * from app_category 
 	</select>
-	<!-- 根据条件查询一二三级名称 -->
 	<select id="queryApp2" resultType="AppCategory" parameterType="Object">
-		select * from app_category 
-		<where>
-		<if test="pid==null ">
-			parentId is NULL
-		</if>
-		<if test="pid!=null ">
-			 parentId =#{pid}
-		</if>
-		</where>
+		select * from app_category where parentId =#{pid}
 	</select>
-	<!-- 查询所属平台信息 -->
 	<select id="queryType" resultType="DataDictionary">
 		select * from data_dictionary where typeName='所属平台'
 	</select>
-	<!-- 根据id查询APP信息 -->
 	<select id="queryVersionid" resultType="AppInfo" parameterType="Object">
 		select id,softwareName,apkName,supportROM,interfaceLanguage,softwareSize,downloads,
 		(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
@@ -80,13 +70,11 @@ from app_info a where a.`status`=1
 		(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
 		(select versionNo from app_version v where a.versionId=v.id) as versionNo,appInfo,logoPicPath
 		from app_info a where a.`status`=1 
-		and id=#{id}
+		and versionid=#{versionid}
 	</select>
-	<!-- 根据ID查询版本信息 -->
 	<select id="queryVId" resultType="AppVersion" parameterType="Object">
 		select versionNo,versionSize,versionInfo,apkFileName,downloadLink from app_version where id=#{id}
 	</select>
-	<!-- 根据id修改APP信息 -->
 	<update id="updapp">
 		UPDATE app_info set status=#{status} where id=#{id}
 	</update> 

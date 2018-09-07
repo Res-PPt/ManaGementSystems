@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import entity.AppInfo;
+import entity.AppVersion;
 import entity.BackendUser;
 import entity.DevUser;
 
@@ -42,5 +43,14 @@ public interface DevUserMapper {
 	  * @param id
 	  * @return
 	  */
-	 List<AppInfo> queryids(@Param("id") String id);
+	 List<AppVersion> queryids(@Param("appId") String id);
+	 
+	 int delappinfo(@Param("id")String id);
+	 /**
+	  * 删除app应用信息
+	  * @param appid
+	  * @return
+	  */
+	 int delappidv(@Param("appid")String appid);
+	 int quertinfoid(@Param("id")String id);
 }
