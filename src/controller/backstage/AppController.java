@@ -51,14 +51,16 @@ public class AppController {
 		int categoryLevel1=0;
 		int categoryLevel2=0;
 		int categoryLevel3=0;
-		List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
+		//Object pid=null;
+		List<AppCategory> acp = appServiceimpl.queryApp2(null);//查询一级菜单
+		//List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
 		List<AppCategory> acct = appServiceimpl.queryApp3();//查询级别名称
 		if(flatformId1!=null&&!"".equals(flatformId1)){
 			flatformId=Integer.valueOf(flatformId1);
 		}
 		if(categoryLevel11!=null&&!"".equals(categoryLevel11)){
 			categoryLevel1=Integer.valueOf(categoryLevel11);
-			request.setAttribute("categoryLevel1List",acp);
+			//request.setAttribute("categoryLevel1List",acp);
 			
 		}
 		if(categoryLevel22!=null&&!"".equals(categoryLevel22)){
@@ -148,13 +150,20 @@ public class AppController {
 	public String check(HttpServletRequest request){
 		String vid = request.getParameter("vid");
 		String aid = request.getParameter("aid");
-		System.out.println("类型"+aid);
-		AppInfo app = appServiceimpl.queryVersionid(vid);
+		System.out.println("appinfoid"+aid);
+		System.out.println("vid="+vid);
+		AppInfo app = appServiceimpl.queryVersionid(aid);
 		AppVersion acp = appServiceimpl.queryVId(vid);
 		request.setAttribute("appVersion",acp);
 		request.setAttribute("appInfo",app);
 		return "backend/appcheck";
 	}
+	/**
+	 * 修改APP信息
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	@RequestMapping("/checksave")
 	public void checksave(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		response.setContentType("text/html;charset=utf-8");

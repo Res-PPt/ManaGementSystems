@@ -54,8 +54,8 @@ public class AppServiceimpl implements AppService{
 	/**
 	 * 根据versionid查询APP信息
 	 */
-	public AppInfo queryVersionid(Object versionid) {
-		AppInfo app = appMapper.queryVersionid(versionid);
+	public AppInfo queryVersionid(Object id) {
+		AppInfo app = appMapper.queryVersionid(id);
 		return app;
 	}
 	/**

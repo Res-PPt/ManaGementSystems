@@ -49,7 +49,7 @@ public interface AppService {
 	 * 根据版本id查询App信息
 	 * @return
 	 */
-	public AppInfo queryVersionid(Object versionid);
+	public AppInfo queryVersionid(Object id);
 	/**
 	 * 根据id查询版本信息
 	 * @return

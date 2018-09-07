@@ -33,8 +33,6 @@ public class LoginInterceptor implements HandlerInterceptor{
 		if(devUser ==null || backendUser==null) {
 			request.getRequestDispatcher("403.jsp").forward(request, arg1);
 			return false;
-		}else {
-			return true;	
 		}*/
 		return true;
 	}

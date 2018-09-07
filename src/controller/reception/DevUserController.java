@@ -37,13 +37,16 @@ public class DevUserController {
 	 */
 	@RequestMapping("/dologin")
 	public String dologin(HttpServletRequest request){
+		DevUser dds=(DevUser)request.getAttribute("devUserSession");
+		if(dds!=null){
+			return "developer/main";
+		}
 		String devCode = request.getParameter("devCode");
 		String devPassword = request.getParameter("devPassword");
 		DevUser devUser =new DevUser();
 		devUser.setDevCode(devCode);
 		devUser.setDevPassword(devPassword);
 		DevUser bss = DevUserService.login(devUser);
-		
 		if(bss!=null){
 		request.setAttribute("devUserSession",bss);
 		return "developer/main";
