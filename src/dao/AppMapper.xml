@@ -55,8 +55,16 @@ from app_info a where a.`status`=1
 	<select id="queryApp3" resultType="AppCategory">
 		select * from app_category 
 	</select>
-	<select id="queryApp2" resultType="AppCategory" parameterType="Object">
-		select * from app_category where parentId =#{pid}
+	<select id="queryApp2" resultType="AppCategory">
+		select * from app_category  
+		<where>
+			<if test="pid==null">
+				parentId is null
+			</if>
+			<if test="pid!=null">
+				parentId = #{pid}
+			</if>
+		</where>
 	</select>
 	<select id="queryType" resultType="DataDictionary">
 		select * from data_dictionary where typeName='所属平台'

@@ -10,6 +10,7 @@ import dao.UserMapper;
 import entity.AppInfo;
 import entity.AppVersion;
 import entity.BackendUser;
+import entity.DataDictionary;
 import entity.DevUser;
 
 @Service("devUserMappers")
@@ -73,6 +74,18 @@ public class DevUserServiceimpl implements DevUserService{
 	public List<AppVersion> queryids(String id) {
 		// TODO Auto-generated method stub
 		return devUserMapper.queryids(id);
+	}
+
+	@Override
+	public List<DataDictionary> queryCode(String typeCode) {
+		return devUserMapper.queryCode(typeCode);
+	}
+
+	/**
+	 * ÐÞ¸ÄAPPÐÅÏ¢
+	 */
+	public int AppUpd(AppInfo appInfo) {
+		return devUserMapper.AppUpd(appInfo);
 	}
 
 	

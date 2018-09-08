@@ -72,13 +72,13 @@
 
 <!-- 查看自己的信息 -->
 	<select id="queryid" resultType="AppInfo">
-					select id,softwareName,apkName,supportROM,interfaceLanguage,softwareSize,downloads,
+					select id,softwareName,categoryLevel1,categoryLevel2,categoryLevel3,apkName,supportROM,interfaceLanguage,softwareSize,downloads,flatformId,
 			(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
 			,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态')
 			 as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
 			(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,versionid,
 			(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
-			(select versionNo from app_version v where a.versionId=v.id) as versionNo,appInfo,logoPicPath
+			(select versionNo from app_version v where a.versionId=v.id) as versionNo,appInfo,logoPicPath,logoLocPath
 			from app_info a where id=#{id}
 	</select>
 
@@ -100,8 +100,14 @@
 	SELECT *from app_info WHERE id #{id}
 	</select>
 
+	<select id="queryCode" resultType="DataDictionary">
+		select * from data_dictionary where typeCode=#{typeCode}
+	</select>
 
-
-
-
+	<!-- 修改APP信息 -->
+	<update id="AppUpd">
+		UPDATE app_info set categoryLevel2=#{categoryLevel2},categoryLevel1=#{categoryLevel1},
+		categoryLevel3=#{categoryLevel3},appInfo=#{appInfo},logoPicPath=#{logoPicPath},logoLocPath=#{logoLocPath},
+		modifyBy=#{modifyBy},modifyDate=#{modifyDate} where id=#{id}
+	</update>
 </mapper>

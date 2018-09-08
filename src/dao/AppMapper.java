@@ -38,7 +38,7 @@ public interface AppMapper {
 	 * 查询二，三级名称
 	 * @return
 	 */
-	public List<AppCategory> queryApp2(Object pid);
+	public List<AppCategory> queryApp2(@Param("pid")Object pid);
 	/**
 	 * 查询级别名称
 	 * @return

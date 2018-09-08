@@ -51,10 +51,10 @@ public class AppController {
 		int categoryLevel1=0;
 		int categoryLevel2=0;
 		int categoryLevel3=0;
-		//Object pid=null;
-		List<AppCategory> acp = appServiceimpl.queryApp2(null);//查询一级菜单
-		//List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
-		List<AppCategory> acct = appServiceimpl.queryApp3();//查询级别名称
+		Object pid=null;
+		//List<AppCategory> acp = appServiceimpl.queryApp2(pid);//查询一级菜单
+		List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
+		List<AppCategory> acct = null;
 		if(flatformId1!=null&&!"".equals(flatformId1)){
 			flatformId=Integer.valueOf(flatformId1);
 		}
@@ -65,11 +65,13 @@ public class AppController {
 		}
 		if(categoryLevel22!=null&&!"".equals(categoryLevel22)){
 			categoryLevel2=Integer.valueOf(categoryLevel22);
+			acct = appServiceimpl.queryApp2(categoryLevel1);//查询级别名称
 			request.setAttribute("categoryLevel2List",acct);
 			
 		}
 		if(categoryLevel33!=null&&!"".equals(categoryLevel33)){
 			categoryLevel3=Integer.valueOf(categoryLevel33);
+			acct = appServiceimpl.queryApp2(categoryLevel2);//查询级别名称
 			request.setAttribute("categoryLevel3List",acct);
 			
 		}
@@ -116,6 +118,12 @@ public class AppController {
 		request.setAttribute("appInfoList",list);//将查询到的App信息保存的页面
 		return "backend/applist";
 	}
+	/**
+	 * 查询二三级名称
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	@ResponseBody
 	@RequestMapping("/categorylevellist")
 	public void ssq(HttpServletRequest request,HttpServletResponse response) throws IOException{
@@ -124,7 +132,10 @@ public class AppController {
 		PrintWriter out = response.getWriter();
 		System.out.println("*************");
 		String id =request.getParameter("pid");
+		System.out.println("------------------");
+		System.out.println(id);
 		List<AppCategory> list = appServiceimpl.queryApp2(id);
+		System.out.println("******");
 		//StringBuffer newsJSON = new StringBuffer("[");
 		//AppCategory sb = null;
 //			for(int i =0;;){

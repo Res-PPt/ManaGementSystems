@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import entity.AppInfo;
 import entity.AppVersion;
 import entity.BackendUser;
+import entity.DataDictionary;
 import entity.DevUser;
 
 public interface DevUserMapper {
@@ -53,4 +54,15 @@ public interface DevUserMapper {
 	  */
 	 int delappidv(@Param("appid")String appid);
 	 int quertinfoid(@Param("id")String id);
+	 /**
+	  * 根据类型编码查询信息
+	  * @return
+	  */
+	 public List<DataDictionary> queryCode(@Param("typeCode")String typeCode);
+	 /**
+	  * 修改App信息
+	  * @param appInfo
+	  * @return
+	  */
+	 public int AppUpd(AppInfo appInfo);
 }
