@@ -87,5 +87,10 @@ public class AppServiceimpl implements AppService{
 		List<AppCategory> list = appMapper.queryApp3();
 		return list;
 	}
+	@Override
+	public List<DataDictionary> queryTypes() {
+		// TODO Auto-generated method stub
+		return appMapper.queryTypes();
+	}
 
 }

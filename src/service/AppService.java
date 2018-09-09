@@ -24,6 +24,7 @@ public interface AppService {
 	 * @return
 	 */
 	public int queryAPP1(AppInfo appInfo);
+	List<DataDictionary> queryTypes();
 	/**
 	 * 查询一级名称
 	 * @return

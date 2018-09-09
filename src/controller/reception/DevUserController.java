@@ -29,6 +29,7 @@ import entity.AppVersion;
 import entity.BackendUser;
 import entity.DataDictionary;
 import entity.DevUser;
+import entity.pages;
 import service.AppServiceimpl;
 import service.DevUserServiceimpl;
 /**
@@ -86,13 +87,98 @@ public class DevUserController {
 
 	@RequestMapping("/list")
 	public String list(AppInfo appInfo,HttpServletRequest request){
-		/**
-		 * 首先判断是否为空如果为空那就先把他给添加下拉框和分页
-		 */
-		List<AppInfo> list = DevUserService.ListAPP(appInfo);
-		request.setAttribute("appInfoList", list);
+		
+		if(appInfo==null) {
+			return "developer/appinfoadd";
+		}
+		
+		String softwareName = request.getParameter("querySoftwareName");//软件名称
+		String flatformId1 = request.getParameter("queryFlatformId");//所属平台的value值
+		String categoryLevel11 = request.getParameter("queryCategoryLevel1");//一级分类值
+		String categoryLevel22 = request.getParameter("queryCategoryLevel2");//二级分类值
+		String categoryLevel33 = request.getParameter("queryCategoryLevel3");//三级分类值
+		String queryStatusid=request.getParameter("queryStatus");
+		if(queryStatusid==null ||queryStatusid=="") {
+			queryStatusid="0";
+		}
+		
+		System.out.println(softwareName);
+		AppInfo app = new AppInfo();
+		int flatformId=0;
+		int categoryLevel1=0;
+		int categoryLevel2=0;
+		int categoryLevel3=0;
+		//Object pid=null;
+		
+		List<DataDictionary> psa=appServiceimpl.queryTypes();
+		List<AppCategory> acp = appServiceimpl.queryApp2(null);//查询一级菜单
+		//List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
+		List<AppCategory> acct = appServiceimpl.queryApp3();//查询级别名称
+		if(flatformId1!=null&&!"".equals(flatformId1)){
+			flatformId=Integer.valueOf(flatformId1);
+		}
+		if(categoryLevel11!=null&&!"".equals(categoryLevel11)){
+			categoryLevel1=Integer.valueOf(categoryLevel11);
+			//request.setAttribute("categoryLevel1List",acp);
+			
+		}
+		if(categoryLevel22!=null&&!"".equals(categoryLevel22)){
+			categoryLevel2=Integer.valueOf(categoryLevel22);
+			request.setAttribute("categoryLevel2List",acct);
+			
+		}
+		if(categoryLevel33!=null&&!"".equals(categoryLevel33)){
+			categoryLevel3=Integer.valueOf(categoryLevel33);
+			request.setAttribute("categoryLevel3List",acct);
+			
+		}
+		app.setSoftwareName(softwareName);
+		app.setFlatformId(flatformId);
+		app.setCategoryLevel1(categoryLevel1);
+		app.setCategoryLevel2(categoryLevel2);
+		appInfo.setStatus(Integer.valueOf(queryStatusid));
+		app.setCategoryLevel3(categoryLevel3);
+		app.setFlatformId(Integer.valueOf(queryStatusid));
+		
+		List<DataDictionary> acc = appServiceimpl.queryType();//查询平台信息
+		request.setAttribute("flatFormList", acc);
+		
+		request.setAttribute("categoryLevel1List",acp);
+		request.setAttribute("queryStatus", Integer.valueOf(queryStatusid));
+		request.setAttribute("querySoftwareName",softwareName);//软件名称
+		request.setAttribute("queryFlatformId",flatformId);//所属平台Id
+		request.setAttribute("queryCategoryLevel1",categoryLevel1);//一级Id
+		request.setAttribute("queryCategoryLevel2",categoryLevel2);//二级Id
+		request.setAttribute("queryCategoryLevel3",categoryLevel3);//三级Id
+		request.setAttribute("statusList", psa);
+
+		System.out.println("categoryLevelList"+categoryLevel2);
+		System.out.println("categoryLevel3List"+categoryLevel3);
+		
+		String pageIndex = request.getParameter("pageIndex");//当前页数
+		int currentPageNo=1;
+		if(pageIndex!=null){
+			currentPageNo= Integer.valueOf(pageIndex);
+		}
+		
+		List<AppInfo> lists = DevUserService.Arrlist(app);//查询APP信息
+		
+		int num = 5;//每页显示多少条数据
+		int totalPageCount = appServiceimpl.AppYe(lists.size(),num);//共有多少页
+		System.out.println(totalPageCount);
+		pages pages = new pages();
+		pages.setCurrentPageNo(currentPageNo);
+		pages.setTotalCount(lists.size());//共有多少条数据
+		pages.setTotalPageCount(totalPageCount);
+		request.setAttribute("pages", pages);
+		currentPageNo = (currentPageNo-1)*num;
+		app.setNum(num);
+		app.setCurrentPageNo(currentPageNo);
+		List<AppInfo> list = DevUserService.ListAPP(app);//查询APP信息
+		request.setAttribute("appInfoList",list);//将查询到的App信息保存的页面
 		return "developer/appinfolist";
 	}
+//	
 	
 	/**
 	 * 跳转到查询查看页面

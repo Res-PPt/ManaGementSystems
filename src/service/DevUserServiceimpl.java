@@ -88,6 +88,12 @@ public class DevUserServiceimpl implements DevUserService{
 		return devUserMapper.AppUpd(appInfo);
 	}
 
+	@Override
+	public List<AppInfo> Arrlist(AppInfo appInfo) {
+		// TODO Auto-generated method stub
+		return devUserMapper.Arrlist(appInfo);
+	}
+
 	
 
 

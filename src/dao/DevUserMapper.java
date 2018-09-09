@@ -22,6 +22,9 @@ public interface DevUserMapper {
 	 * @return
 	 */
 	public DevUser queryName(@Param("devCode") String userCode);
+	
+	
+	List<AppInfo> Arrlist (AppInfo appInfo);
 	/**
 	 * 根据密码判断用户是否存在
 	 * @param backendUser

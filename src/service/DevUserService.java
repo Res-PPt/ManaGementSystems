@@ -35,6 +35,8 @@ public interface DevUserService {
 	 * 查询app信息
 	 */
 	AppInfo queryid(@Param("id") String id);
+	
+	List<AppInfo> Arrlist (AppInfo appInfo);
 	 /**
 	  * 查询历史版本
 	  * @param id
