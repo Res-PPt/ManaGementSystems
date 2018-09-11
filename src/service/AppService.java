@@ -69,4 +69,7 @@ public interface AppService {
 	 * @return
 	 */
 	public int AppYe(int result,int num1);
+	
+	
+	
 }

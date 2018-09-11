@@ -28,12 +28,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse arg1, Object arg2) throws Exception {
 		// TODO Auto-generated method stub
-		/*DevUser devUser =(DevUser) request.getSession().getAttribute("devUserSession");
-		BackendUser backendUser =(BackendUser) request.getSession().getAttribute("userSession");
-		if(devUser ==null || backendUser==null) {
-			request.getRequestDispatcher("403.jsp").forward(request, arg1);
-			return false;
-		}*/
+//		DevUser devUser =(DevUser) request.getSession().getAttribute("devUserSession");
+//		BackendUser backendUser =(BackendUser) request.getSession().getAttribute("userSession");
+//		if(devUser ==null || backendUser==null) {
+//			request.getRequestDispatcher("403.jsp").forward(request, arg1);
+//			return false;
+//		}
 		return true;
 	}
 

@@ -18,23 +18,45 @@
 		SELECT *from dev_user WHERE devPassword=#{devPassword}
 	</select>
 	<!-- 模糊查询 -->
+	
+	<!-- 模糊查询 -->
 	<select id="Arrlist" resultType="AppInfo" parameterType="AppInfo">
-	select softwareName,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
-	,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' and b.valueId  LIKE CONCAT('%',#{versionId},'%'))
-	 as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
+	select softwareName,`status`,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
+	,id,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' )
+ 	as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
 	(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,
-	(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name
-	from app_info a where (select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' and b.valueId  LIKE CONCAT('%',#{versionId},'%'))  LIKE CONCAT('%',#{versionNo},'%')
-	and softwareName  LIKE CONCAT('%',#{softwareName},'%') and flatformId  LIKE CONCAT('%',#{flatformId},'%')
-	and categoryLevel1  LIKE CONCAT('%',#{categoryLevel1},'%')
-	and (select categoryName from app_category c where a.categoryLevel2=c.id)  LIKE CONCAT('%',#{categoryLevel3},'%')
-	and (select categoryName from app_category c where a.categoryLevel3=c.id)  LIKE CONCAT('%',#{categoryLevel2},'%')
-		
+	(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
+	(select versionNo from app_version v where a.versionId=v.id) as versionNo
+	from app_info a
+	<where>
+	<if test="softwareName!=null and softwareName!=''">
+		and softwareName LIKE concat('%',#{softwareName},'%') 
+	</if>
+	
+	<if test="flatformId!=0">
+		and flatformId =#{flatformId}
+	</if>
+	
+	<if test="categoryLevel1!=0">
+		and categoryLevel1 =#{categoryLevel1}
+	</if>
+	
+	<if test="categoryLevel2!=0">
+		and categoryLevel2 = #{categoryLevel2}
+	</if>
+	
+	<if test="categoryLevel3!=0">
+		and categoryLevel3 =#{categoryLevel3}
+	</if>
+	<if test="status!=0">
+		and status=#{status}
+	</if>
+	</where>
 	</select>
 
 	<!-- 模糊查询 -->
 	<select id="ListAPP" resultType="AppInfo" parameterType="AppInfo">
-	select softwareName,`status`,apkName,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
+	select softwareName,`status`,apkName,versionId,softwareSize,(select valueName from data_dictionary d where a.flatformId=d.valueId and d.typeName='所属平台') as flatformName
 	,id,downloads,(select valueName from data_dictionary b where a.status=b.valueId and b.typeName='APP状态' )
  	as statusName,(select categoryName from app_category c where a.categoryLevel1=c.id) as categoryLevel1Name,
 	(select categoryName from app_category c where a.categoryLevel2=c.id) as categoryLevel2Name,
@@ -64,10 +86,9 @@
 	<if test="status!=0">
 		and status=#{status}
 	</if>
-	<if test="id!=0">
-		and id =#{id}
-	</if> 
+		
 	</where>
+	LIMIT #{currentPageNo},#{num}
 </select>
 
 <!-- 查看自己的信息 -->
@@ -81,13 +102,21 @@
 			(select versionNo from app_version v where a.versionId=v.id) as versionNo,appInfo,logoPicPath,logoLocPath
 			from app_info a where id=#{id}
 	</select>
-
+	
+	
 	<select id="queryids" resultType="AppVersion">
 					select versionNo,versionSize,apkFileName,downloadLink,apkLocPath,(SELECT softwareName FROM app_info a WHERE a.id=v.appId) 
 					as softwareName,modifyDate,(SELECT  valueName from data_dictionary d WHERE v.publishStatus=d.valueId and typeName='发布状态') as flatformName from app_version v
 					WHERE appId=#{appId} ORDER BY modifyDate DESC
 	</select> 
-
+	<select id="queryidsf" resultType="AppInfo">
+					SELECT *from app_info WHERE id=#{id}
+	</select> 
+	
+	<!-- 查询最新版本由创建时间来更改 -->
+	<select id="queryver" resultType="AppVersion">
+	SELECT *from app_version WHERE appId=#{appid} ORDER BY creationDate DESC LIMIT 0,1 
+	</select>
 	<!-- 删除app信息得删除双表 -->
 	<delete id="delappinfo">
 	DELETE FROM app_info WHERE id=#{id}
@@ -97,7 +126,11 @@
 	</delete>
 
 	<select id="quertinfoid" resultType="int">
-	SELECT *from app_info WHERE id #{id}
+	SELECT *from app_info WHERE id =#{id}
+	</select>
+	
+	<select id="queryVersion" resultType="AppVersion">
+	SELECT *from app_version WHERE id =#{id}
 	</select>
 
 	<select id="queryCode" resultType="DataDictionary">
@@ -109,5 +142,32 @@
 		UPDATE app_info set categoryLevel2=#{categoryLevel2},categoryLevel1=#{categoryLevel1},
 		categoryLevel3=#{categoryLevel3},appInfo=#{appInfo},logoPicPath=#{logoPicPath},logoLocPath=#{logoLocPath},
 		modifyBy=#{modifyBy},modifyDate=#{modifyDate} where id=#{id}
+	</update>
+	<insert id="addinfo" parameterType="AppInfo">
+	INSERT INTO app_info(id,softwareName,APKName,supportROM,interfaceLanguage,
+ 		softwareSize,devId,status,flatformId,categoryLevel3,downloads,creationDate,categoryLevel1,
+ 		categoryLevel2,logoPicPath,logoLocPath,createdBy,appInfo) 
+ 		VALUES(DEFAULT,#{softwareName},#{APKName},#{supportROM},#{interfaceLanguage},
+ 		#{softwareSize},#{devId},#{status},#{flatformId},#{categoryLevel3},#{downloads},#{creationDate}
+ 		,#{categoryLevel1},#{categoryLevel2},#{logoPicPath},#{logoLocPath},#{createdBy},#{appInfo})
+	</insert>
+	<select id="apkname" resultType="AppInfo">
+	SELECT *from app_info WHERE APKName=#{APKName}
+	</select>
+
+	<!-- 添加app版本 -->
+	<insert id="appver" parameterType="AppVersion">
+	INSERT INTO app_version(id,appId,versionNo,versionInfo,publishStatus,downloadLink,versionSize,createdBy,creationDate,apkLocPath,apkFileName)
+	VALUES(DEFAULT,#{appId},#{versionNo},#{versionInfo},#{publishStatus},#{downloadLink},#{versionSize},#{createdBy},#{creationDate},#{apkLocPath},#{apkFileName})
+	</insert>
+	
+	<update id="moder" parameterType="AppVersion">
+	UPDATE app_version SET versionNo=#{versionNo},versionInfo=#{versionInfo},publishStatus=#{publishStatus},downloadLink=#{downloadLink},
+	versionSize=#{versionSize},createdBy=#{createdBy},creationDate=#{creationDate},apkLocPath=#{apkLocPath},apkFileName=#{apkFileName} 
+	WHERE id=#{id}
+	</update>
+	<!-- 更新最新版本 -->
+	<update id="infovid" parameterType="AppInfo">
+		UPDATE app_info SET versionId=#{versionId} WHERE id=#{id}
 	</update>
 </mapper>

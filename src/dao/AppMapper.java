@@ -23,6 +23,7 @@ public interface AppMapper {
 	 * @return
 	 */
 	public int queryAPP1(AppInfo appInfo);
+	
 	List<DataDictionary> queryTypes();
 	/**
 	 * 查询全部平台

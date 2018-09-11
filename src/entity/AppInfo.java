@@ -18,8 +18,7 @@ public class AppInfo {
 	private String apkLocPath;
 	private String apkFileName;
 	private String apklocPath;
-	
-	private int devld;//开发者Id
+	private int devId;//开发者Id
 	private String appInfo;//应用简介
 	private int status;//状态
 	private Date onSaleDate;//上架时间
@@ -105,10 +104,10 @@ public class AppInfo {
 		this.updateDate = updateDate;
 	}
 	public int getDevld() {
-		return devld;
+		return devId;
 	}
 	public void setDevld(int devld) {
-		this.devld = devld;
+		this.devId = devld;
 	}
 	public String getAppInfo() {
 		return appInfo;

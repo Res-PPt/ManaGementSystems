@@ -58,10 +58,10 @@
 						<tbody>
 							<c:forEach var="appVersion" items="${appVersionList }" varStatus="status">
 								<tr role="row" class="odd">
-									<td tabindex="0" class="sorting_1">${appVersion.appName}</td>
+									<td tabindex="0" class="sorting_1">${appVersion.softwareName}</td>
 									<td>${appVersion.versionNo }</td>
 									<td>${appVersion.versionSize }</td>
-									<td>${appVersion.publishStatusName }</td>
+									<td>${appVersion.flatformName }</td>
 									<td>
 									<a href="${appVersion.downloadLink }">${appVersion.apkFileName }</a>
 									</td>

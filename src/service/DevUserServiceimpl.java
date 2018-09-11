@@ -94,6 +94,58 @@ public class DevUserServiceimpl implements DevUserService{
 		return devUserMapper.Arrlist(appInfo);
 	}
 
+	@Override
+	public int addinfo(AppInfo appInfo) {
+		// TODO Auto-generated method stub
+		return devUserMapper.addinfo(appInfo);
+	}
+
+	@Override
+	public AppInfo apkname(String apkname) {
+		// TODO Auto-generated method stub
+		return devUserMapper.apkname(apkname);
+	}
+
+	@Override
+	public int appver(AppVersion appVersion) {
+		// TODO Auto-generated method stub
+		return devUserMapper.appver(appVersion);
+	}
+
+	
+
+	@Override
+	public AppInfo queryidsf(String id) {
+		// TODO Auto-generated method stub
+		return devUserMapper.queryidsf(id);
+	}
+
+	@Override
+	public AppVersion queryver(String id) {
+		// TODO Auto-generated method 
+		return devUserMapper.queryver(id);
+	}
+
+	@Override
+	public int infovid(AppInfo appInfo) {
+		// TODO Auto-generated method stub
+		return devUserMapper.infovid(appInfo);
+	}
+
+	@Override
+	public AppVersion queryVersion(String id) {
+		// TODO Auto-generated method stub
+		return devUserMapper.queryVersion(id);
+	}
+
+	@Override
+	public int moder(AppVersion appVersion) {
+		// TODO Auto-generated method stub
+		return devUserMapper.moder(appVersion);
+	}
+
+
+
 	
 
 

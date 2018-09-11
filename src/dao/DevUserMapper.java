@@ -49,6 +49,8 @@ public interface DevUserMapper {
 	  */
 	 List<AppVersion> queryids(@Param("appId") String id);
 	 
+	 AppInfo queryidsf(@Param("id") String id);
+	 
 	 int delappinfo(@Param("id")String id);
 	 /**
 	  * 删除app应用信息
@@ -68,4 +70,29 @@ public interface DevUserMapper {
 	  * @return
 	  */
 	 public int AppUpd(AppInfo appInfo);
+	 int addinfo(AppInfo appInfo);
+	 
+	 AppInfo apkname(@Param("APKName")String APKName);
+	 
+	 /**
+	  * 新增app版本
+	  * @param appVersion
+	  * @return
+	  */
+	 int appver(AppVersion appVersion);
+	 /**
+	  * 更新info表的vid版本
+	  */
+	 int infovid(AppInfo appInfo);
+	 
+	 AppVersion queryver(@Param("appid")String id);
+	 
+	 /**
+	  * 查询版本表
+	  */
+	 AppVersion queryVersion(@Param("id")String id);
+	 /**
+	  * 更新数据
+	  */
+	 int moder(AppVersion appVersion);
 }

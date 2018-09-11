@@ -25,6 +25,8 @@ public interface DevUserService {
 	 * @return
 	 */
 	public DevUser queryPwd(@Param("devPassword") String userPassword);
+	
+	 AppInfo queryidsf(@Param("id") String id);
 	/**
 	 * 模糊查询
 	 * @param appInfo
@@ -65,4 +67,40 @@ public interface DevUserService {
 	  * @return
 	  */
 	 public int AppUpd(AppInfo appInfo);
+	 
+	 int addinfo(AppInfo appInfo);
+	 
+	 AppInfo apkname(@Param("APKName")String apkname);
+	 /**
+	  * 上架下架
+	  * @param id
+	  * @return
+	  */
+	 /**
+	  * 新增app版本
+	  * @param appVersion
+	  * @return
+	  */
+	 int appver(AppVersion appVersion);
+	 /**
+	  * 更新info表的vid版本
+	  */
+	 int infovid(AppInfo appInfo);
+	 
+	 /**
+	  * 查询最新版本
+	  * @param id
+	  * @return
+	  */
+	 AppVersion queryver(@Param("id")String id);
+	 
+	 /**
+	  * 查询版本表
+	  */
+	 AppVersion queryVersion(@Param("id")String id);
+	 
+	 /**
+	  * 更新数据
+	  */
+	 int moder(AppVersion appVersion);
 }	
