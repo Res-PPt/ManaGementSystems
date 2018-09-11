@@ -15,7 +15,7 @@ from app_info a where a.`status`=1
 		and flatformId =#{flatformId}
 	</if>
 	<if test="categoryLevel1!=null and categoryLevel1!=0">
-		and categoryLevel1 =#{categoryLevel1}y
+		and categoryLevel1 =#{categoryLevel1}
 	</if>
 	<if test="categoryLevel2!=null and categoryLevel2!=0">
 		and categoryLevel2 = #{categoryLevel2}
@@ -81,7 +81,7 @@ from app_info a where a.`status`=1
 		(select categoryName from app_category c where a.categoryLevel3=c.id) as categoryLevel3Name,
 		(select versionNo from app_version v where a.versionId=v.id) as versionNo,appInfo,logoPicPath
 		from app_info a where a.`status`=1 
-		and versionid=#{versionid}
+		and id=#{versionid}
 	</select>
 	<select id="queryVId" resultType="AppVersion" parameterType="Object">
 		select versionNo,versionSize,versionInfo,apkFileName,downloadLink from app_version where id=#{id}

@@ -103,4 +103,9 @@ public interface DevUserService {
 	  * 更新数据
 	  */
 	 int moder(AppVersion appVersion);
+	 /**
+	  * 根据id修改App上下架状态
+	  */
+	 public boolean AppUpd1(AppInfo appInfo);
+
 }	

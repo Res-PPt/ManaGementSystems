@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,42 +51,9 @@ public class DevUserController {
 	
 //	private AppInfo appInfo;
 	
-	@RequestMapping("/login")
-	public String login(){
-		return "devlogin";
-	}
+	
 
-	/**
-	 * 验证登陆
-	 */
-	@RequestMapping("/dologin")
-	public String dologin(HttpServletRequest request){
-		String devCode = request.getParameter("devCode");
-		String devPassword = request.getParameter("devPassword");
-		DevUser devUser =new DevUser();
-		devUser.setDevCode(devCode);
-		devUser.setDevPassword(devPassword);
-		DevUser bss = DevUserService.login(devUser);
-		DevUser bcct =(DevUser) request.getSession().getAttribute("devUserSession");
-		if(bcct!=null){
-			return "developer/main";
-		}
-		if(bss!=null){
-		request.getSession().setAttribute("devUserSession",bss);
-		return "developer/main";
-	}else{ 
-		DevUser bts = DevUserService.queryName(devCode);
-		DevUser btss = DevUserService.queryPwd(devPassword);
-		if(bts==null && btss!=null){
-			request.setAttribute("error","用户名输入有误");
-		}else if(bts!=null && btss==null){
-			request.setAttribute("error","密码输入有误");
-		}else{
-		request.setAttribute("error","用户名或密码都不存在");
-		}
-		return "devlogin";
-	}
-}
+	
 
 
 	@RequestMapping("/list")
@@ -116,22 +84,25 @@ public class DevUserController {
 		List<DataDictionary> psa=appServiceimpl.queryTypes();
 		List<AppCategory> acp = appServiceimpl.queryApp2(null);//查询一级菜单
 		//List<AppCategory> acp = appServiceimpl.queryApp1();//查询一级菜单
-		List<AppCategory> acct = appServiceimpl.queryApp3();//查询级别名称
+		List<AppCategory> acct=null;//查询级别名称
 		if(flatformId1!=null&&!"".equals(flatformId1)){
 			flatformId=Integer.valueOf(flatformId1);
 		}
 		if(categoryLevel11!=null&&!"".equals(categoryLevel11)){
 			categoryLevel1=Integer.valueOf(categoryLevel11);
+			
 			//request.setAttribute("categoryLevel1List",acp);
 			
 		}
 		if(categoryLevel22!=null&&!"".equals(categoryLevel22)){
 			categoryLevel2=Integer.valueOf(categoryLevel22);
+			acct = appServiceimpl.queryApp2(categoryLevel1);
 			request.setAttribute("categoryLevel2List",acct);
 			
 		}
 		if(categoryLevel33!=null&&!"".equals(categoryLevel33)){
 			categoryLevel3=Integer.valueOf(categoryLevel33);
+			acct = appServiceimpl.queryApp2(categoryLevel2);
 			request.setAttribute("categoryLevel3List",acct);
 			
 		}
@@ -258,13 +229,23 @@ public class DevUserController {
 	   @RequestMapping("/appinfomodify")
 	   public String appinfomodify(HttpServletRequest request) {
 		   String id= request.getParameter("id");
-		   if(id==null) {
+		  /* if(id==null ||) {
 			   return "developer/appinfolist";
-		   }
-		   AppInfo app=DevUserService.queryid(id);//查询APP信息
+		   }*/
+		   AppInfo app = new AppInfo();
+			app.setLogoPicPath("111");
+			
+		   AppInfo app1=DevUserService.queryid(id);//查询APP信息
 		   //List<DataDictionary> acc = appServiceimpl.queryType();//查询平台信息
 		   List<AppCategory> acct = appServiceimpl.queryApp2(id);//查询级别名称
-		   request.setAttribute("appInfo",app);
+		   System.out.println("app.getStatus()"+app.getStatus());
+		   if(request.getAttribute("appInfo")==null && id!=null){
+				
+		   request.getSession().setAttribute("appInfo",app1);
+		   }
+		   AppInfo app2 = new AppInfo();
+			app.setLogoPicPath("112");
+			request.getSession().setAttribute("app",app2);
 		   //request.setAttribute("",);
 		   
 		   return "developer/appinfomodify";
@@ -307,6 +288,8 @@ public class DevUserController {
 			}
 			out.print(aat);
 	   }
+	  
+
 	   /**
 	    * 修改APP信息
 	    * @param request
@@ -323,68 +306,91 @@ public class DevUserController {
 		   PrintWriter out = response.getWriter();
 		   String logoPicPath = null;
 		   DevUser bct =(DevUser) request.getSession().getAttribute("devUserSession");
+		   System.out.println("appInfo.getStatus()"+appInfo.getStatus());
 		   int ii = bct.getId();
 		   int num =0;
 			//判断文件是否为空
+		   System.out.println("appInfo.getLogoPicPath()===="+appInfo.getLogoPicPath());
+		   System.out.println("attach==="+attach);
 			if(!attach.isEmpty()){
+				System.out.println("**************1成功");
 				String path = request.getSession().getServletContext().getRealPath("statics"+File.separator+"uploadfiles");
-				System.out.println("uploadFile path==============>"+path);
+				//System.out.println("uploadFile path==============>"+path);
 				String oldFileName = attach.getOriginalFilename();//原文件名
-				System.out.println("uploadFile oldFileName==============>"+oldFileName);
+				//System.out.println("uploadFile oldFileName==============>"+oldFileName);
 				String prefix = FilenameUtils.getExtension(oldFileName);//原文件后缀
-				System.out.println("uploadFile prefix==============>"+prefix);
+				//System.out.println("uploadFile prefix==============>"+prefix);
 				appInfo.setLogoLocPath(path+"//"+oldFileName);
 				//appInfo.setLogoPicPath("/ManaGementSystems/statics/images/"+oldFileName);
-
 				int filesize =500000;
-				System.out.println("uploadFile filesize==============>"+filesize);
-				
+				//int filesize =90000;
+				//System.out.println("uploadFile filesize==============>"+filesize);
 				if(attach.getSize()>filesize){//上传大小不得超过500KB
-					request.setAttribute("fileUploadError","* 上传大小不得超过200KB");
+					System.out.println("***********************3成功");
+					request.getSession().setAttribute("fileUploadError","* 上传大小不得超过500KB");
 					out.print("<script>location.href='appinfomodify';</script>");
-					//return "developer/appinfomodify";
-				}
+				}else if(prefix.equalsIgnoreCase("jpg")
+						||prefix.equalsIgnoreCase("png")
+						||prefix.equalsIgnoreCase("jpeg")
+						||prefix.equalsIgnoreCase("pneg")){//上传图片格式不正确
+					System.out.println("************2成功");
+					//String fileName = System.currentTimeMillis()+RandomUtils.nextInt(10000000)+"_Personal.jpg";
+					
 				File targetFile=new File(path,oldFileName);
 				if(!targetFile.exists()){
 					targetFile.mkdirs(); //如果文件夹不存在，就新建
 				}
 					try {
+						System.out.println("******************4成功");
 						attach.transferTo(targetFile);
 					} catch (Exception e) {
-						e.printStackTrace();
-						request.setAttribute("fileUploadError", "* 上传失败!");
+						//e.printStackTrace();
+						request.getSession().setAttribute("fileUploadError", "* 上传失败!");
 						out.print("<script>location.href='appinfomodify';</script>");
-						//return "developer/appinfomodify";
 					}
+					//System.out.println("dddddddddddddddddd1111111111"+oldFileName);
 					logoPicPath = "/ManaGementSystems/statics/uploadfiles/"+oldFileName;
 					//logoPicPath = path+File.separator+oldFileName;
-					System.out.println("*******************2");
 					appInfo.setModifyBy(ii);
 					appInfo.setModifyDate(new Date());
 					appInfo.setLogoPicPath(logoPicPath);
 					 num = DevUserService.AppUpd(appInfo);
-					System.out.println("相对路径2="+appInfo.getLogoPicPath());
+					/*System.out.println("相对路径2="+appInfo.getLogoPicPath());
 					System.out.println("服务器路径="+appInfo.getLogoLocPath());
 					System.out.println("getCategoryLevel1="+appInfo.getCategoryLevel1());
 					System.out.println("getCategoryLevel2="+appInfo.getCategoryLevel2());
 					System.out.println("getCategoryLevel3="+appInfo.getCategoryLevel3());
 					System.out.println("flatformId="+appInfo.getFlatformId());
-					System.out.println("getAppInfo="+appInfo.getAppInfo());
-					
+					System.out.println("getAppInfo="+appInfo.getAppInfo());*/
 			}else{
-				System.out.println("*****************1");
+				System.out.println("*********************5成功");
+				request.getSession().setAttribute("fileUploadError","上传图片格式不正确");
+				out.print("<script>location.href='appinfomodify';</script>");
+				// return "developer/appinfomodify";
+			}
+			}else{
+				System.out.println("**********************6成功");
+				AppInfo app =(AppInfo) request.getSession().getAttribute("app");
+				System.out.println("app.getLogoPicPath()"+app.getLogoPicPath());
+				String sts =app.getLogoPicPath();
 				
+				if("112".equals(sts)){
+					System.out.println("1111111111111"+sts+"22222222222");
+					appInfo.setLogoLocPath(null);
+					appInfo.setLogoPicPath(null);
+				}
+				System.out.println("**************7成功");
 				appInfo.setModifyBy(ii);
 				appInfo.setModifyDate(new Date());
 				num = DevUserService.AppUpd(appInfo);
-				System.out.println("路径="+logoPicPath);
+				/*System.out.println("路径="+logoPicPath);
 				System.out.println("相对路径2="+appInfo.getLogoPicPath());
 				System.out.println("getCategoryLevel1="+appInfo.getCategoryLevel1());
 				System.out.println("getCategoryLevel2="+appInfo.getCategoryLevel2());
 				System.out.println("getCategoryLevel3="+appInfo.getCategoryLevel3());
 				System.out.println("flatformId="+appInfo.getFlatformId());
 				System.out.println("getAppInfo="+appInfo.getAppInfo());
-				System.out.println("服务器路径="+appInfo.getApkLocPath());
+				System.out.println("服务器路径="+appInfo.getApkLocPath());*/
 			}
 			if(num>0){
 				out.print("<script>alert('修改成功！');location.href='list';</script>");
@@ -522,6 +528,10 @@ public class DevUserController {
 	   public String dp(HttpServletRequest request) {
 		   String id= request.getParameter("aid");
 		   String vid= request.getParameter("vid");
+		   System.out.println("000000000000000000000000000000000000000000000s"+vid);
+		   if(vid.equals("0")) {
+			   return "developer/main";
+		   }
 		   List<AppVersion> list=DevUserService.queryids(id);
 		   AppVersion Version=DevUserService.queryVersion(vid);
 		   request.setAttribute("appVersionList", list);
@@ -659,8 +669,6 @@ public class DevUserController {
 				String prefix = FilenameUtils.getExtension(oldFileName);//原文件后缀
 				System.out.println("uploadFile prefix==============>"+prefix);
 				System.out.println(path);
-				
-				
 				int filesize =9251415;
 				System.out.println("uploadFile filesize==============>"+filesize);
 				
@@ -691,9 +699,7 @@ public class DevUserController {
 					aAppVersion.setVersionSize(Integer.valueOf(versionSize));
 					aAppVersion.setVersionNo(versionNo);
 					num=DevUserService.appver(aAppVersion);
-					
 					AppVersion asp=DevUserService.queryver(appid);
-					
 					
 					if(asp==null) {
 						return;
@@ -710,6 +716,46 @@ public class DevUserController {
 				out.print("<script>alert('新增失败！');location.href='list';</script>");
 			}
 			
+	   }
+	   
+	   @ResponseBody
+	   @RequestMapping("/sale")
+	   public String sale(AppInfo appInfo,HttpServletRequest request,HttpServletResponse response){
+		   System.out.println("1111111");
+		  HashMap<Object,Object> map = new HashMap<Object,Object>();
+		  	  Integer id =0;
+			  String appId = request.getParameter("appId");
+			  System.out.println("appId"+appId);
+			  DevUser bct =(DevUser) request.getSession().getAttribute("devUserSession");//登录者对象
+			   int ii = bct.getId();
+			  if(appId!=null){
+			  id = Integer.valueOf(appId);
+			  }
+			  System.out.println("status"+id);
+			 
+			  if(id>0){
+				  map.put("errorCode","0");
+				  try { 
+					  appInfo.setId(id);
+					  AppInfo acpt = DevUserService.queryid(String.valueOf(id));
+					  acpt.setModifyBy(ii);
+					  acpt.setModifyDate(new Date());
+					  System.out.println("fdafasfadsf"+acpt.getStatus());
+					  System.out.println(DevUserService.AppUpd1(acpt));
+					  if(DevUserService.AppUpd1(acpt)){
+						 
+						  map.put("resultMsg","success");
+					  }else{
+						  map.put("resultMsg","failed");
+					  }
+				} catch (Exception e) {
+					map.put("errorCode","exception000001");
+				}
+				 
+			  }else{
+				  request.setAttribute("param000001","0");
+			  }
+			return JSON.toJSONString(map);
 	   }
 	  
 }

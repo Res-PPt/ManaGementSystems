@@ -105,9 +105,11 @@ $(document).on("click",".saleSwichOpen,.saleSwichClose",function(){
 
 var saleSwitchAjax = function(appId,obj){
 	$.ajax({
-		type:"PUT",
-		url:appId+"/sale.json",
+		type:"post",
+		url:"sale",
+		data:{appId:appId},
 		dataType:"json",
+		
 		success:function(data){
 			/*
 			 * resultMsg:success/failed

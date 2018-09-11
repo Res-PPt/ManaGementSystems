@@ -144,6 +144,12 @@ public class DevUserServiceimpl implements DevUserService{
 		return devUserMapper.moder(appVersion);
 	}
 
+	@Override
+	public boolean AppUpd1(AppInfo appInfo) {
+		// TODO Auto-generated method stub
+		return devUserMapper.AppUpd1(appInfo);
+	}
+
 
 
 	

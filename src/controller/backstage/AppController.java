@@ -60,7 +60,6 @@ public class AppController {
 		}
 		if(categoryLevel11!=null&&!"".equals(categoryLevel11)){
 			categoryLevel1=Integer.valueOf(categoryLevel11);
-			//request.setAttribute("categoryLevel1List",acp);
 			
 		}
 		if(categoryLevel22!=null&&!"".equals(categoryLevel22)){
