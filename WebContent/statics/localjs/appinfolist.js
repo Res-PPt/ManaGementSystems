@@ -65,13 +65,14 @@ $(".addVersion").on("click",function(){
 	var obj = $(this);
 	window.location.href="appversionadd?id="+obj.attr("appinfoid");
 });
+
 $(".modifyVersion").on("click",function(){
 	var obj = $(this);
 	var status = obj.attr("status");
 	var versionid = obj.attr("versionid");
 	var appinfoid = obj.attr("appinfoid");
 	if(status == "1" || status == "3"){//待审核、审核未通过状态下才可以进行修改操作
-		if(versionid == null || versionid == ""){
+		if(versionid == null || versionid == "0"){
 			alert("该APP应用无版本信息，请先增加版本信息！");
 		}else{
 			window.location.href="appversionmodify?vid="+ versionid + "&aid="+ appinfoid;

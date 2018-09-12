@@ -528,10 +528,11 @@ public class DevUserController {
 	   public String dp(HttpServletRequest request) {
 		   String id= request.getParameter("aid");
 		   String vid= request.getParameter("vid");
-		   System.out.println("000000000000000000000000000000000000000000000s"+vid);
+		  /* System.out.println("000000000000000000000000000000000000000000000s"+vid);
 		   if(vid.equals("0")) {
+			   
 			   return "developer/main";
-		   }
+		   }*/
 		   List<AppVersion> list=DevUserService.queryids(id);
 		   AppVersion Version=DevUserService.queryVersion(vid);
 		   request.setAttribute("appVersionList", list);
@@ -596,8 +597,8 @@ public class DevUserController {
 				System.out.println("*******************2");
 				appVersion.setModifyBy(bct.getId());
 				appVersion.setCreationDate(new Date());
-				appVersion.setDownloadLink("/ManaGementSystems/statics/images/"+oldFileName);
-				appVersion.setApkLocPath(path);
+				appVersion.setDownloadLink("/ManaGementSystems/statics/uploadfiles/"+oldFileName);
+				appVersion.setApkLocPath(path+oldFileName);
 				appVersion.setApkFileName(oldFileName);
 				System.out.println("222222222222222");
 				 num = DevUserService.moder(appVersion);
@@ -690,9 +691,9 @@ public class DevUserController {
 					logoPicPath = "/ManaGementSystems/statics/uploadfiles/"+oldFileName;
 					aAppVersion.setCreatedBy(bct.getId());
 					aAppVersion.setCreationDate(new Date());
-					aAppVersion.setApkLocPath(path);
+					aAppVersion.setApkLocPath(path+oldFileName);
 					aAppVersion.setApkFileName(oldFileName);
-					aAppVersion.setDownloadLink("/ManaGementSystems/statics/images/"+oldFileName);
+					aAppVersion.setDownloadLink("/ManaGementSystems/statics/uploadfiles/"+oldFileName);
 					aAppVersion.setAppId(Integer.valueOf(appid));
 					aAppVersion.setVersionInfo(versionInfo);
 					aAppVersion.setPublishStatus(Integer.valueOf(publishStatus));
